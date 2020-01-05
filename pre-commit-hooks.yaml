@@ -1,3 +1,9 @@
+- id: check-message
+  name: check message formatting
+  language: script
+  entry: check-message
+  stages: [commit-msg]
+
 - id: console-logging
   name: remove console logging
   description: Remove lines in JavaScript and TypeScript containing console logging.

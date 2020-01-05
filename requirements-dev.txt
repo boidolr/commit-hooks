@@ -1,0 +1,8 @@
+-e .
+
+mock
+pre-commit
+pytest
+pytest-clarity
+pytest-cov
+pytest-pep8
