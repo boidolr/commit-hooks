@@ -19,7 +19,8 @@ def _is_wrong_message_prefix(commit_msg_filepath):
 def _update_message(branch, commit_msg_filepath):
     match = re.match(r'(?:feature|hotfix)\/(\w+-\d+)', branch)
 
-    if match is None: return False
+    if match is None:
+        return False
 
     issue = match.group(1)
     prefix = '{}: '.format(issue)

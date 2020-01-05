@@ -13,6 +13,7 @@ def test_abort_when_no_branch(temp_git_dir):
         assert main((path.strpath,)) == 1
         assert path.read() == ''
 
+
 @pytest.mark.parametrize(
     ('branch', 'content', 'return_code'),
     (
