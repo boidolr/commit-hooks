@@ -1,3 +1,9 @@
+- id: prepare-message
+  name: prepare commit message
+  language: script
+  entry: prepare-message
+  stages: [prepare-commit-msg]
+
 - id: check-message
   name: check message formatting
   language: script

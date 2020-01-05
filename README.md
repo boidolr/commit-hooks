@@ -21,4 +21,5 @@ Add this to your `.pre-commit-config.yaml`
 
 - `console-logging`: Remove lines containing javascript console statements.
 - `properties-whitespace`: Remove whitespace around equal signs in property files.
+- `prepare-message`: Change commit messages to include a ticket prefix.
 - `check-message`: Ensure commit message conforms to format of headline followed by two empty lines.
