@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 import argparse
 import sys
+import typing
 
 
-def _ensure_message_format(commit_msg_filepath):
+def _ensure_message_format(commit_msg_filepath: str) -> None:
     # ensure there are always two empty lines between short description and description
     with open(commit_msg_filepath, 'r+') as fh:
         lines = fh.read().splitlines()
@@ -22,7 +23,7 @@ def _ensure_message_format(commit_msg_filepath):
         fh.truncate()
 
 
-def main(argv=None):
+def main(argv: typing.Optional[typing.Sequence[str]] = None) -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument('filename', help='Commit message file path')
     args = parser.parse_args(argv)
