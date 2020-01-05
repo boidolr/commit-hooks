@@ -23,6 +23,11 @@ Add this to your `.pre-commit-config.yaml`
 
 - `prepare-message`: Change commit messages to include a ticket prefix.
 - `check-message`: Ensure commit message conforms to format of headline followed by two empty lines.
+- `save-message`: Save commit message - hook needs to be used in conjunction with `restore-message`.
+    In case the commit is aborted during processing this hook enables saving the content of the commit message.
+    It needs to be included as first hook in the processing chain.
+- `restore-message`: Restore commit message - hook needs to be used in conjunction with `save-message`.
+    In case the previous commit was aborted this hook restores the content of the commit message into the editor.
 
 #### Code related
 
