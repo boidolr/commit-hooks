@@ -20,6 +20,14 @@
   files: \.*(js|ts)$
   stages: [commit]
 
+- id: check-test
+  name: remove focus and ignore from tests such as `(f|x)describe` or `(f|x)it`
+  description: Remove focus and ignore from tests in JavaScript and TypeScript.
+  language: system
+  entry: "sed -E -e 's/[fx](describe|it)\(/\1(/g' -i ''"
+  files: \.spec\.(ts|js)
+  stages: [commit]
+
 - id: properties-whitespace
   name: remove whitespace around '=' in property files
   description: Remove whitespace around '=' in property files

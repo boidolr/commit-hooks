@@ -23,3 +23,4 @@ Add this to your `.pre-commit-config.yaml`
 - `properties-whitespace`: Remove whitespace around equal signs in property files.
 - `prepare-message`: Change commit messages to include a ticket prefix.
 - `check-message`: Ensure commit message conforms to format of headline followed by two empty lines.
+- `check-test`: Remove focus and ignore from [jasmine](https://jasmine.github.io/) and [jest](https://jestjs.io/) tests.
