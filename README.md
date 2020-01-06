@@ -19,8 +19,13 @@ Add this to your `.pre-commit-config.yaml`
 
 ### Hooks available
 
-- `console-logging`: Remove lines containing javascript console statements.
-- `properties-whitespace`: Remove whitespace around equal signs in property files.
+#### Commit message related
+
 - `prepare-message`: Change commit messages to include a ticket prefix.
 - `check-message`: Ensure commit message conforms to format of headline followed by two empty lines.
+
+#### Code related
+
 - `check-test`: Remove focus and ignore from [jasmine](https://jasmine.github.io/) and [jest](https://jestjs.io/) tests.
+- `console-logging`: Remove lines containing javascript console statements.
+- `properties-whitespace`: Remove whitespace around equal signs in property files.
