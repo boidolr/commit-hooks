@@ -1,3 +1,4 @@
 pre_commit_hooks.egg-info
 .pytest_cache
 *.pyc
+.mypy_cache/
