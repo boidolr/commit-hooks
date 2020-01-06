@@ -1,11 +1,13 @@
 - id: prepare-message
   name: prepare commit message
+  description: Add prefix from feature branch to commit message
   language: script
   entry: prepare-message
   stages: [prepare-commit-msg]
 
 - id: check-message
   name: check message formatting
+  description: Ensure commit message has correct formatting between header and description
   language: script
   entry: check-message
   stages: [commit-msg]
