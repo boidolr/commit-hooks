@@ -18,7 +18,7 @@
   language: system
   entry: "sed  -E -e '/console\\.(?>log|trace|dir)/d' -i ''"
   files: \.*(js|ts)$
-  stages: [commit, push, manual]
+  stages: [commit]
 
 - id: properties-whitespace
   name: remove whitespace around '=' in property files
@@ -27,4 +27,4 @@
   entry: "sed -E -e 's/^([^=[:space:]]+)[[:space:]]*=[[:space:]]*/\1=/g -i ''"
   # entry : "sed -i'' -E -e '/^([^=[:space:]]+)[[:space:]]*=[[:space:]]*/{s//\\1=/g;h};${x;/./{x;q1};x;q0}'"
   files: \.properties$
-  stages: [commit, push, manual]
+  stages: [commit]
