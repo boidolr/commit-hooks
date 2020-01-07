@@ -5,6 +5,7 @@ Some hooks for pre-commit.
 
 See also: https://github.com/pre-commit/pre-commit
 
+[![Build Status](https://travis-ci.org/boidolr/pre-commit-hooks.svg?branch=master)](https://travis-ci.org/boidolr/pre-commit-hooks)
 
 ### Using pre-commit-hooks with pre-commit
 
