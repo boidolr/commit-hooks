@@ -1,52 +1,54 @@
 - id: restore-message
-  name: restore commit message
-  language: script
+  name: Restore commit message
+  description: Restore commit message after an earlier commit was aborted
+  language: python_venv
   entry: restore-message
-  args: ['--restore']
+  args: ['--mode=restore']
   stages: [prepare-commit-msg]
 
 - id: prepare-message
-  name: prepare commit message
+  name: Prepare commit message
   description: Add prefix from feature branch to commit message
-  language: script
+  language: python_venv
   entry: prepare-message
   stages: [prepare-commit-msg]
 
+- id: save-message
+  name: Save commit message
+  description: Save commit message in case the commit gets aborted
+  language: python_venv
+  entry: restore-message
+  args: ['--mode=save']
+  stages: [commit-msg]
+
 - id: check-message
-  name: check message formatting
+  name: Check message formatting
   description: Ensure commit message has correct formatting between header and description
-  language: script
+  language: python_venv
   entry: check-message
   stages: [commit-msg]
 
-- id: save-message
-  name: save commit message
-  language: script
-  entry: restore-message
-  args: ['--save']
-  stages: [commit-msg]
-
 - id: console-logging
-  name: remove console logging
+  name: Remove console logging
   description: Remove lines in JavaScript and TypeScript containing console logging.
   language: system
   entry: "sed  -E -e '/console\\.(?>log|trace|dir)/d' -i ''"
-  files: \.*(js|ts)$
+  files: \.(js|ts)$
   stages: [commit]
 
 - id: check-test
-  name: remove focus and ignore from tests such as `(f|x)describe` or `(f|x)it`
+  name: Remove focus and ignore from tests
   description: Remove focus and ignore from tests in JavaScript and TypeScript.
   language: system
-  entry: "sed -E -e 's/[fx](describe|it)\(/\1(/g' -i ''"
-  files: \.spec\.(ts|js)
+  entry: "sed -E -e 's/[fx](describe|it)\\(/\\1(/g' -i ''"
+  files: \.spec\.(ts|js)$
   stages: [commit]
 
 - id: properties-whitespace
-  name: remove whitespace around '=' in property files
+  name: Remove whitespace around '=' in *.properties
   description: Remove whitespace around '=' in property files
   language: system
-  entry: "sed -E -e 's/^([^=[:space:]]+)[[:space:]]*=[[:space:]]*/\1=/g -i ''"
+  entry: "sed -E -e 's/^([^=[:space:]]+)[[:space:]]*=[[:space:]]*/\\1=/g -i ''"
   # entry : "sed -i'' -E -e '/^([^=[:space:]]+)[[:space:]]*=[[:space:]]*/{s//\\1=/g;h};${x;/./{x;q1};x;q0}'"
   files: \.properties$
   stages: [commit]
