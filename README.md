@@ -33,5 +33,6 @@ Add this to your `.pre-commit-config.yaml`
 #### Code related
 
 - `check-test`: Remove focus and ignore from [jasmine](https://jasmine.github.io/) and [jest](https://jestjs.io/) tests.
+- `ng-lint`: Execute `ng lint --fix` from the `node_module` directory for changed files.
 - `console-logging`: Remove lines containing javascript console statements.
 - `properties-whitespace`: Remove whitespace around equal signs in property files.

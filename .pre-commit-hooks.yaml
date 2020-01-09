@@ -44,6 +44,14 @@
   files: \.spec\.(ts|js)$
   stages: [commit]
 
+- id: ng-lint
+  name: Execute ng lint
+  description: Execute ng lint from the node_modules directory
+  language: python_venv
+  entry: check-ng-lint
+  files: \.ts$
+  stages: [commit]
+
 - id: properties-whitespace
   name: Remove whitespace around '=' in *.properties
   description: Remove whitespace around '=' in property files
