@@ -32,7 +32,7 @@
   name: Remove console logging
   description: Remove lines in JavaScript and TypeScript containing console logging.
   language: system
-  entry: "sed  -E -e '/console\\.(?>log|trace|dir)/d' -i ''"
+  entry: "sed  -E -e '/console\\.(log|trace|dir)/d' -i ''"
   files: \.(js|ts)$
   stages: [commit]
 
