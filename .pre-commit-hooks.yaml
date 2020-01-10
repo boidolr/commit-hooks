@@ -33,7 +33,7 @@
   description: Remove lines in JavaScript and TypeScript containing console logging.
   language: system
   entry: "sed  -E -e '/console\\.(log|trace|dir)/d' -i ''"
-  files: \.(js|ts)$
+  types: [javascript, ts]
   stages: [commit]
 
 - id: check-test
@@ -41,6 +41,7 @@
   description: Remove focus and ignore from tests in JavaScript and TypeScript.
   language: system
   entry: "sed -E -e 's/[fx](describe|it)\\(/\\1(/g' -i ''"
+  types: [javascript, ts]
   files: \.spec\.(ts|js)$
   stages: [commit]
 
@@ -49,7 +50,7 @@
   description: Execute ng lint from the node_modules directory
   language: python_venv
   entry: check-ng-lint
-  files: \.ts$
+  types: [ts]
   stages: [commit]
 
 - id: properties-whitespace
@@ -58,5 +59,5 @@
   language: system
   entry: "sed -E -e 's/^([^=[:space:]]+)[[:space:]]*=[[:space:]]*/\\1=/g -i ''"
   # entry : "sed -i'' -E -e '/^([^=[:space:]]+)[[:space:]]*=[[:space:]]*/{s//\\1=/g;h};${x;/./{x;q1};x;q0}'"
-  files: \.properties$
+  types: [java-properties]
   stages: [commit]
