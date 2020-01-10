@@ -9,9 +9,14 @@ from .util import _execute_command
 def main(argv: Optional[Sequence[str]] = None) -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument('filenames', nargs='*', help='Filenames to check.')
+    parser.add_argument('--fix', help='Use ng lint to fix issues where possible.')
     args = parser.parse_args(argv)
 
-    command = ['node_modules/.bin/ng', 'lint', '--fix']
+    command = ['node_modules/.bin/ng', 'lint']
+
+    if args.fix:
+        command.append('--fix')
+
     if len(args.filenames) > 0:
         command.extend(['--files', ','.join(args.filenames)])
 
