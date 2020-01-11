@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 import argparse
 import sys
-
 from typing import Sequence, Optional
 from .util import _execute_command
 
@@ -9,10 +8,13 @@ from .util import _execute_command
 def main(argv: Optional[Sequence[str]] = None) -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument('filenames', nargs='*', help='Filenames to check.')
-    parser.add_argument('--fix', help='Use ng lint to fix issues where possible.')
+    parser.add_argument('--fix', action='store_true',
+                        help='Use ng lint to fix issues where possible.')
+    parser.add_argument('--ng-path', dest='path', default='node_modules/.bin/ng',
+                        help='Path to `ng` executable (default: %(default)s')
     args = parser.parse_args(argv)
 
-    command = ['node_modules/.bin/ng', 'lint']
+    command = [args.path, 'lint']
 
     if args.fix:
         command.append('--fix')

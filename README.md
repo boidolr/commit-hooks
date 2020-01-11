@@ -32,7 +32,8 @@ Add this to your `.pre-commit-config.yaml`
 #### Code related
 
 - `check-test`: Remove focus and ignore from [jasmine](https://jasmine.github.io/) and [jest](https://jestjs.io/) tests.
-- `ng-lint`: Execute `ng lint --fix` from the `node_module` directory for changed files.
+- `ng-lint`: Execute `ng lint` for changed files only.
     - `--fix` will call `ng lint` with `--fix`
+    - `--ng-path` can be used to give the path to the `ng` executable. Default is `node_modules/.bin/ng`
 - `console-logging`: Remove lines containing javascript console statements.
 - `properties-whitespace`: Remove whitespace around equal signs in property files.
