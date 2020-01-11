@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import argparse
 import sys
-import typing
+from typing import Optional, Sequence
 
 
 def _ensure_message_format(commit_msg_filepath: str) -> None:
@@ -23,7 +23,7 @@ def _ensure_message_format(commit_msg_filepath: str) -> None:
         fh.truncate()
 
 
-def main(argv: typing.Optional[typing.Sequence[str]] = None) -> int:
+def main(argv: Optional[Sequence[str]] = None) -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument('filename', help='Commit message file path')
     args = parser.parse_args(argv)
