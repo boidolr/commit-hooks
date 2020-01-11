@@ -21,7 +21,12 @@ Add this to your `.pre-commit-config.yaml`
 
 #### Commit message related
 
-- `prepare-message`: Change commit messages to include a ticket prefix.
+- `prepare-message`: Change commit messages to include a prefix.
+    - `--ignore-branch` will lead to the branch not being checked
+    - `--pattern` can be used to change the feature branch pattern to take the message prefix from.
+        Needs to match with `--prefix-pattern`. Defaults to `feature/(\w+-\d+)`
+    - `--prefix-pattern` should match the prefix of the message to normalize it.
+        Needs to match with `--pattern`. Defaults to `^\s*\w+-\d+\s*:`
 - `check-message`: Ensure commit message conforms to format of headline followed by two empty lines.
 - `save-message`: Save commit message - hook needs to be used in conjunction with `restore-message`.
     In case the commit is aborted during processing this hook enables saving the content of the commit message.

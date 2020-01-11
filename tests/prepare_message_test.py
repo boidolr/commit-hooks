@@ -17,21 +17,17 @@ def test_abort_when_no_branch(temp_git_dir):
 @pytest.mark.parametrize(
     ('branch', 'content', 'return_code'),
     (
-        ('master', 'foo', 1),
-        ('master', 'JIRA-1', 0),
-        ('master', 'JIRA-2: bar', 0),
-        ('develop', 'baz', 1),
-        ('develop', 'JIRA-3', 0),
-        ('develop', 'JIRA-4: qux', 0),
+        ('develop', 'foo', 1),
+        ('master', 'foo', 0),
     ),
 )
-def test_check_prefix_format_not_on_feature_branch(branch, content, return_code, temp_git_dir):
+def test_handle_ignored_branch(branch, content, return_code, temp_git_dir):
     path = temp_git_dir.join('message')
     path.write(content)
     with temp_git_dir.as_cwd():
         # now on branch
         _execute_command('git', 'checkout', '-b', branch)
-        assert main((path.strpath,)) == return_code
+        assert main(('--ignore-branch=master', path.strpath,)) == return_code
         assert path.read() == content
 
 
