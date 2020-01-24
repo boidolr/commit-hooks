@@ -1,4 +1,4 @@
-pre-commit-hooks [![Build Status](https://travis-ci.org/boidolr/pre-commit-hooks.svg?branch=master)](https://travis-ci.org/boidolr/pre-commit-hooks) [![release](https://img.shields.io/github/v/release/boidolr/pre-commit-hooks)](https://github.com/boidolr/pre-commit-hooks/releases/latest)
+pre-commit-hooks [![Build Status](https://travis-ci.org/boidolr/pre-commit-hooks.svg?branch=master)](https://travis-ci.org/boidolr/pre-commit-hooks) [![release](https://img.shields.io/github/v/tag/boidolr/pre-commit-hooks)](https://github.com/boidolr/pre-commit-hooks/releases)
 ================
 
 Some hooks for pre-commit.

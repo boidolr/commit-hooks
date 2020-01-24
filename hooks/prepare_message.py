@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import argparse
+import pathlib
 import re
 import sys
 from typing import Pattern, Optional, Match, Sequence
@@ -7,8 +8,29 @@ from typing import Pattern, Optional, Match, Sequence
 from .util import _execute_command
 
 
+def _get_rebase_merge_path() -> Optional[str]:
+    return _execute_command('git', 'rev-parse', '--git-path', 'rebase-merge')
+
+
+def _get_rebase_apply_path() -> Optional[str]:
+    return _execute_command('git', 'rev-parse', '--git-path', 'rebase-apply')
+
+
+def _get_rebase_in_progress() -> bool:
+    path = _get_rebase_merge_path()
+    if path and pathlib.Path(path).exists():
+        return True
+
+    path = _get_rebase_apply_path()
+    if path and pathlib.Path(path).exists():
+        return True
+
+    return False
+
+
 def _get_branch_name() -> Optional[str]:
-    return _execute_command('git', 'symbolic-ref', '--short', 'HEAD')
+    name = _execute_command('git', 'symbolic-ref', '--short', 'HEAD')
+    return name
 
 
 def _is_wrong_message_prefix(commit_msg_filepath: str, prefix_pattern: Pattern[str]) -> bool:
@@ -48,12 +70,16 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
 
     branch_name = _get_branch_name()
     if branch_name is None:
-        print('Not on a branch, returning early.', file=sys.stderr)
-        return 1
+        if _get_rebase_in_progress():
+            return 0
+        else:
+            print('Not on a branch, returning early.', file=sys.stderr)
+            return 1
 
     if args.ignore_branch is not None and branch_name in args.ignore_branch:
         return 0
 
+    branch_name = branch_name.strip()
     match = re.match(args.pattern, branch_name)
     updated = _update_message(args.filename, match, re.compile(args.prefix))
     if not updated:
