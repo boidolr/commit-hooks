@@ -28,11 +28,9 @@ Add this to your `.pre-commit-config.yaml`
     - `--prefix-pattern` should match the prefix of the message to normalize it.
         Needs to match with `--pattern`. Defaults to `^\s*\w+-\d+\s*:`
 - `check-message`: Ensure commit message conforms to format of headline followed by two empty lines.
-- `save-message`: Save commit message - hook needs to be used in conjunction with `restore-message`.
-    In case the commit is aborted during processing this hook enables saving the content of the commit message.
-    It needs to be included as first hook in the processing chain.
-- `restore-message`: Restore commit message - hook needs to be used in conjunction with `save-message`.
-    In case the previous commit was aborted this hook restores the content of the commit message into the editor.
+- `restore-message`: Restore commit message
+    In case the previous commit was aborted this hook restores the content of `COMMIT_EDITMSG` the commit message into the editor.
+    Similar to `git commit --reuse-message=.git/COMMIT_EDITMSG`.
 
 #### Code related
 

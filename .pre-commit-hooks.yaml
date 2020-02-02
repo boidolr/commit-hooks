@@ -3,7 +3,6 @@
   description: Restore commit message after an earlier commit was aborted
   language: python_venv
   entry: restore-message
-  args: ['--mode=restore']
   stages: [prepare-commit-msg]
 
 - id: prepare-message
@@ -14,11 +13,10 @@
   stages: [prepare-commit-msg]
 
 - id: save-message
-  name: Save commit message
-  description: Save commit message in case the commit gets aborted
-  language: python_venv
-  entry: restore-message
-  args: ['--mode=save']
+  name: Save commit message (deprecated)
+  description: Save commit message in case the commit gets aborted (deprecated)
+  language: system
+  entry: echo
   stages: [commit-msg]
 
 - id: check-message

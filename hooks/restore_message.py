@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 import argparse
 import pathlib
-import shutil
 import sys
 from typing import Optional, Sequence
 
@@ -9,7 +8,7 @@ from .util import _execute_command
 
 
 def _get_backup_file_path() -> Optional[str]:
-    return _execute_command('git', 'rev-parse', '--git-path', 'PRECOMMIT_COMMIT_EDITMSG')
+    return _execute_command('git', 'rev-parse', '--git-path', 'COMMIT_EDITMSG')
 
 
 def _restore_message(backup_file: str, message_file: str) -> None:
@@ -35,14 +34,8 @@ def _restore_message(backup_file: str, message_file: str) -> None:
             fh.write(message_content)
 
 
-def _save_message(backup_file: str, message_file: str) -> None:
-    shutil.copyfile(message_file, backup_file)
-
-
 def main(argv: Optional[Sequence[str]] = None) -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument('-m', '--mode', choices=('save', 'restore'),
-                        help='Whether to save or restore the commit message content')
     parser.add_argument('filename', help='Commit message file path')
     args = parser.parse_args(argv)
 
@@ -51,10 +44,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     if backup_file is None:
         return 1
 
-    if args.mode == 'save':
-        _save_message(backup_file, args.filename)
-    else:
-        _restore_message(backup_file, args.filename)
+    _restore_message(backup_file, args.filename)
 
     return 0
 
