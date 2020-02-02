@@ -1,0 +1,76 @@
+## https://pre-commit.com
+# pre-commit install --install-hooks
+#
+# Run hooks on repo:
+# pre-commit run --all-files [hook-id]
+#
+# Update repos:
+# pre-commit autoupdate
+---
+minimum_pre_commit_version: 1.14.0
+default_language_version:
+  python: python3
+default_stages: [commit]
+fail_fast: false
+exclude: ^$
+repos:
+  - repo: https://github.com/boidolr/pre-commit-hooks
+    rev: v1.2.2
+    hooks:
+      # - id: prepare-message
+      #   args:
+      #     - '--ignore-branch=master'
+      - id: restore-message
+      - id: console-logging
+      - id: check-test
+      - id: properties-whitespace
+      - id: ng-lint
+        args:
+          - '--fix'
+
+  - repo: local
+    hooks:
+      - id: check-commit-message
+        stages: [commit-msg]
+        name: Check commit message for fail
+        language: pygrep
+        entry: fail
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v2.4.0
+    hooks:
+      - id: check-merge-conflict
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: mixed-line-ending
+        files: \.(java|groovy|properties|ts|js|scss|yaml)$
+        args:
+          - '--fix=lf'
+      - id: no-commit-to-branch
+        args:
+          - '--pattern=^release'
+          - '--branch=develop'
+      - id: pretty-format-json
+      - id: requirements-txt-fixer
+      - id: trailing-whitespace
+
+  - repo: https://github.com/pre-commit/pygrep-hooks
+    rev: v1.4.4
+    hooks:
+      - id: python-use-type-annotations
+      - id: rst-backticks
+
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v0.761
+    hooks:
+      - id: mypy
+
+  - repo: https://github.com/jumanjihouse/pre-commit-hooks
+    rev: 1.11.2
+    hooks:
+      - id: shellcheck
+
+  - repo: https://gitlab.com/pycqa/flake8
+    rev: 3.7.9
+    hooks:
+      - id: flake8
