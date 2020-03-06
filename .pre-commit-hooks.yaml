@@ -31,7 +31,8 @@
   description: Remove lines in JavaScript and TypeScript containing console logging.
   language: system
   entry: "sed  -E -e '/console\\.(log|trace|dir)/d' -i ''"
-  types: [javascript, ts]
+  types: [text]
+  files: \.(ts|js)$
   stages: [commit]
 
 - id: check-test
@@ -39,7 +40,7 @@
   description: Remove focus and ignore from tests in JavaScript and TypeScript.
   language: system
   entry: "sed -E -e 's/[fx](describe|it)\\(/\\1(/g' -i ''"
-  types: [javascript, ts]
+  types: [text]
   files: \.spec\.(ts|js)$
   stages: [commit]
 
