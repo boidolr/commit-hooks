@@ -2,14 +2,14 @@
 import argparse
 import sys
 
-from autocorrect import Speller
+from autocorrect import Speller, word_regexes
 from difflib import ndiff
 from re import sub
 from typing import Optional, Sequence
 
 
-def _check_message_spelling(commit_msg_filepath: str) -> int:
-    spell = Speller(lang='en')
+def _check_message_spelling(commit_msg_filepath: str, language: str) -> int:
+    spell = Speller(lang=language)
     with open(commit_msg_filepath, 'r') as fh:
         content = fh.read()
 
@@ -33,9 +33,14 @@ def _check_message_spelling(commit_msg_filepath: str) -> int:
 def main(argv: Optional[Sequence[str]] = None) -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument('filename', help='Commit message file path')
+    parser.add_argument(
+        '-l', '--language',
+        default='en',
+        choices=sorted(word_regexes.keys()),
+        help='Language to use for spellchecking (default: %(default)s)')
     args = parser.parse_args(argv)
 
-    return _check_message_spelling(args.filename)
+    return _check_message_spelling(args.filename, args.language)
 
 
 if __name__ == '__main__':
