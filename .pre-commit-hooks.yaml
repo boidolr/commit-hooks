@@ -20,10 +20,17 @@
   stages: [commit-msg]
 
 - id: check-message
+  name: Check message formatting (deprecated)
+  description: Ensure commit message has correct formatting between header and description
+  language: python_venv
+  entry: format-message
+  stages: [commit-msg]
+
+- id: format-message
   name: Check message formatting
   description: Ensure commit message has correct formatting between header and description
   language: python_venv
-  entry: check-message
+  entry: format-message
   stages: [commit-msg]
 
 - id: console-logging

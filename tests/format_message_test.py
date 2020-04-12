@@ -1,6 +1,6 @@
 import pytest
 
-from hooks.check_message import main
+from hooks.format_message import main
 
 
 @pytest.mark.parametrize(
