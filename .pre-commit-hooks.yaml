@@ -53,7 +53,7 @@
 
 - id: ng-lint
   name: Execute ng lint
-  description: Execute ng lint from the node_modules directory
+  description: Execute ng lint from the node_modules directory.
   language: python_venv
   entry: check-ng-lint
   types: [ts]
@@ -61,7 +61,7 @@
 
 - id: properties-whitespace
   name: Remove whitespace in property files
-  description: Remove whitespace around '=' in property files
+  description: Remove whitespace around '=' in property files.
   language: system
   entry: "sed -E -e 's/^([^=[:space:]]+)[[:space:]]*=[[:space:]]*/\\1=/g -i ''"
   # entry : "sed -i'' -E -e '/^([^=[:space:]]+)[[:space:]]*=[[:space:]]*/{s//\\1=/g;h};${x;/./{x;q1};x;q0}'"
