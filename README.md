@@ -11,7 +11,7 @@ See also: https://github.com/pre-commit/pre-commit-hooks
 Add this to your `.pre-commit-config.yaml`
 
     -   repo: https://github.com/boidolr/pre-commit-hooks
-        rev: v1.2.3  # Use the ref you want to point at
+        rev: v1.3.0  # Use the ref you want to point at
         hooks:
         -   id: console-logging
         # -   id: ...
@@ -38,5 +38,7 @@ Add this to your `.pre-commit-config.yaml`
 - `ng-lint`: Execute `ng lint` for changed files only.
     - `--fix` will call `ng lint` with `--fix`.
     - `--ng-path` can be used to give the path to the `ng` executable. Default is `node_modules/.bin/ng`.
+- `optimize-image`: Compress `png`, `jpeg` and `svg` images.
+    - `--threshold` can be used to configure which size difference should be used to keep the image (default is `128`).
 - `console-logging`: Remove lines containing JavaScript `console` logging statements.
 - `properties-whitespace`: Remove whitespace around equal signs in property files.
