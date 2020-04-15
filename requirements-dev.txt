@@ -1,7 +1,10 @@
 -e .
 
+pillow==7.1.1
+
 pytest
 pytest-clarity
 pytest-cov
 pytest-flake8
 pytest-mypy
+scour==0.37

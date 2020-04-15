@@ -59,6 +59,15 @@
   types: [ts]
   stages: [commit]
 
+- id: optimize-image
+  name: Optimize images
+  description: Check whether images can be reencoded to decrease file size.
+  language: python_venv
+  entry: optimize-image
+  additional_dependencies: [pillow==7.1.1,scour==0.37]
+  files: \.(png|jpe?g)$
+  stages: [commit]
+
 - id: properties-whitespace
   name: Remove whitespace in property files
   description: Remove whitespace around '=' in property files.
