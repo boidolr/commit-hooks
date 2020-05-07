@@ -11,7 +11,7 @@ See also: https://github.com/pre-commit/pre-commit-hooks
 Add this to your `.pre-commit-config.yaml`
 
     -   repo: https://github.com/boidolr/pre-commit-hooks
-        rev: v1.3.0  # Use the ref you want to point at
+        rev: v1.3.1  # Use the ref you want to point at
         hooks:
         -   id: console-logging
         # -   id: ...
@@ -40,5 +40,7 @@ Add this to your `.pre-commit-config.yaml`
     - `--ng-path` can be used to give the path to the `ng` executable. Default is `node_modules/.bin/ng`.
 - `optimize-image`: Compress `png`, `jpeg` and `svg` images.
     - `--threshold` can be used to configure which size difference should be used to keep the image (default is `128`).
+- `console-debugger`: Remove lines containing JavaScript `debugger` statements.
 - `console-logging`: Remove lines containing JavaScript `console` logging statements.
+- `console-window`: Remove lines containing JavaScript `window` statements.
 - `properties-whitespace`: Remove whitespace around equal signs in property files.

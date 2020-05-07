@@ -33,6 +33,15 @@
   entry: format-message
   stages: [commit-msg]
 
+- id: console-debugger
+  name: Remove console debugger statements
+  description: Remove lines in JavaScript and TypeScript containing debugger statements.
+  language: system
+  entry: "sed  -E -e '/debugger/d' -i ''"
+  types: [text]
+  files: \.(ts|js)$
+  stages: [commit]
+
 - id: console-logging
   name: Remove console logging
   description: Remove lines in JavaScript and TypeScript containing console logging.
@@ -41,6 +50,16 @@
   types: [text]
   files: \.(ts|js)$
   stages: [commit]
+
+- id: console-window
+  name: Remove window access
+  description: Remove lines in JavaScript and TypeScript containing window access.
+  language: system
+  entry: "sed  -E -e '/window/d' -i ''"
+  types: [text]
+  files: \.(ts|js)$
+  stages: [commit]
+
 
 - id: check-test
   name: Remove focus & ignore from tests
