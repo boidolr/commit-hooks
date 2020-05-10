@@ -46,3 +46,12 @@ Add this to your `.pre-commit-config.yaml`
 - `console-logging`: Remove lines containing JavaScript `console` logging statements.
 - `console-window`: Remove lines containing JavaScript `window` statements.
 - `properties-whitespace`: Remove whitespace around equal signs in property files.
+
+
+### References
+
+Some of the hooks only work because of other projects:
+
+- [autocorrect](https://github.com/fsondej/autocorrect)
+- [PIL](https://github.com/python-pillow/Pillow)
+- [scour](https://github.com/scour-project/scour)
