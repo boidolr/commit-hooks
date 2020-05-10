@@ -2,7 +2,7 @@
 import argparse
 import sys
 from typing import Sequence, Optional
-from .util import _execute_command
+from .command_util import _execute_command
 
 
 def main(argv: Optional[Sequence[str]] = None) -> int:

@@ -1,6 +1,6 @@
 import pytest
 
-from hooks.util import _execute_command
+from hooks.command_util import _execute_command
 
 
 @pytest.fixture

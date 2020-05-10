@@ -5,7 +5,7 @@ import re
 import sys
 from typing import Pattern, Optional, Match, Sequence
 
-from .util import _execute_command
+from .command_util import _execute_command
 
 
 def _get_rebase_merge_path() -> Optional[str]:

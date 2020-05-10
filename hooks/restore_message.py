@@ -4,7 +4,7 @@ import pathlib
 import sys
 from typing import Optional, Sequence
 
-from .util import _execute_command
+from .command_util import _execute_command
 
 
 def _get_backup_file_path() -> Optional[str]:
