@@ -60,6 +60,13 @@
   files: \.(ts|js)$
   stages: [commit]
 
+- id: spellcheck-message
+  name: Check spelling of message
+  description: Check spelling of message against known dictionary.
+  language: python_venv
+  entry: spellcheck-message
+  additional_dependencies: [autocorrect==1.1.0]
+  stages: [commit-msg]
 
 - id: check-test
   name: Remove focus & ignore from tests

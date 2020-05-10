@@ -28,6 +28,8 @@ Add this to your `.pre-commit-config.yaml`
     - `--prefix-pattern` should match the prefix of the message to normalize it.
         Needs to match with `--pattern`. Defaults to `^\s*\w+-\d+\s*:`
 - `format-message`: Ensure commit message conforms to format of headline followed by two empty lines.
+- `spellcheck-message`: Test the message against a known dictionary.
+    - `--language` can be used to switch to other supported languages then English (`en`).
 - `restore-message`: Restore commit message.
     In case the previous commit was aborted this hook restores the content of `COMMIT_EDITMSG` the commit message into the editor.
     Similar to `git commit --reuse-message=.git/COMMIT_EDITMSG`.
