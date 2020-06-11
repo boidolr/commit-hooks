@@ -15,7 +15,7 @@ fail_fast: false
 exclude: ^$
 repos:
   - repo: https://github.com/boidolr/pre-commit-hooks
-    rev: v1.3.1
+    rev: v1.4.1
     hooks:
       # - id: prepare-message
       #   args:
