@@ -1,0 +1,15 @@
+# Please see the documentation for all configuration options:
+# https://help.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
+
+version: 2
+updates:
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    ignore:
+      - dependency-name: "pytest"
+      - dependency-name: "pytest-clarity"
+      - dependency-name: "pytest-cov"
+      - dependency-name: "pytest-flake8"
+      - dependency-name: "pytest-mypy"
