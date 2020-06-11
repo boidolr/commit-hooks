@@ -7,15 +7,14 @@ from scour import scour
 from typing import Sequence, Optional
 
 
-def _optimize_jpeg_png(path: Path, threshold: int) -> Path:
-    # JPEG: quality=0..100
+def _optimize_jpeg_png(path: Path, quality: int) -> Path:
     bkp = path.with_suffix(path.suffix + '.bkp')
     im = Image.open(path)
-    im.save(bkp, format=im.format, optimize=True, progressive=True)
+    im.save(bkp, format=im.format, optimize=True, progressive=True, quality=quality)
     return bkp
 
 
-def _optimize_svg(path: Path, threshold: int) -> Path:
+def _optimize_svg(path: Path) -> Path:
     data = path.read_text()
     options = {
         'enable_viewboxing': True,
@@ -31,13 +30,13 @@ def _optimize_svg(path: Path, threshold: int) -> Path:
     return bkp
 
 
-def _optimize_image(path: str, threshold: int) -> None:
+def _optimize_image(path: str, threshold: int, quality: int) -> None:
     fp = Path(path)
 
     if fp.suffix == '.svg':
-        output = _optimize_svg(fp, threshold)
+        output = _optimize_svg(fp)
     else:
-        output = _optimize_jpeg_png(fp, threshold)
+        output = _optimize_jpeg_png(fp, quality)
 
     if fp.stat().st_size > output.stat().st_size + threshold:
         output.replace(fp)
@@ -48,13 +47,15 @@ def _optimize_image(path: str, threshold: int) -> None:
 def main(argv: Optional[Sequence[str]] = None) -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument('filenames', nargs='*', help='Filenames to optimize.')
-    parser.add_argument('--threshold', dest='threshold', default=128, type=int,
+    parser.add_argument('-t', '--threshold', dest='threshold', default=1024, type=int,
                         help='Minimum improvment to replace file in bytes (default: %(default)s')
+    parser.add_argument('-q', '--quality', dest='quality', default=80, type=int,
+                        help='Quality to use for JPG images (default: %(default)s')
     args = parser.parse_args(argv)
 
     for file in args.filenames:
         try:
-            _optimize_image(file, args.threshold)
+            _optimize_image(file, args.threshold, args.quality)
         except Exception as exc:
             print('Failed optimization for {} ({})'.format(','.join(args.filenames), exc))
             return 1

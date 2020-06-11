@@ -41,7 +41,8 @@ Add this to your `.pre-commit-config.yaml`
     - `--fix` will call `ng lint` with `--fix`.
     - `--ng-path` can be used to give the path to the `ng` executable. Default is `node_modules/.bin/ng`.
 - `optimize-image`: Compress `png`, `jpeg` and `svg` images.
-    - `--threshold` can be used to configure which size difference should be used to keep the image (default is `128`).
+    - `--threshold` can be used to configure which size difference should be used to keep the image.
+    - `--quality` can be used to configure quality setting for a JPG image.
 - `console-debugger`: Remove lines containing JavaScript `debugger` statements.
 - `console-logging`: Remove lines containing JavaScript `console` logging statements.
 - `console-window`: Remove lines containing JavaScript `window` statements.
