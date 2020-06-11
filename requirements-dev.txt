@@ -1,6 +1,6 @@
 -e .
 
-autocorrect==1.1.0
+autocorrect==1.2.1
 pillow==7.1.2
 
 pytest
