@@ -15,7 +15,7 @@ fail_fast: false
 exclude: ^$
 repos:
   - repo: https://github.com/boidolr/pre-commit-hooks
-    rev: v1.4.1
+    rev: v1.4.2
     hooks:
       # - id: prepare-message
       #   args:
@@ -40,10 +40,11 @@ repos:
         entry: fail
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v2.5.0
+    rev: v3.1.0
     hooks:
       - id: check-merge-conflict
       - id: check-yaml
+      - id: debug-statements
       - id: end-of-file-fixer
       - id: mixed-line-ending
         files: \.(java|groovy|properties|ts|js|scss|yaml)$
@@ -54,6 +55,10 @@ repos:
           - '--pattern=^release'
           - '--branch=develop'
       - id: pretty-format-json
+        args:
+          - '--autofix'
+          - '--indent=4'
+          - '--no-sort-keys'
       - id: requirements-txt-fixer
       - id: trailing-whitespace
 
@@ -64,16 +69,16 @@ repos:
       - id: rst-backticks
 
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v0.770
+    rev: v0.781
     hooks:
       - id: mypy
 
   - repo: https://github.com/jumanjihouse/pre-commit-hooks
-    rev: 2.0.2
+    rev: 2.1.3
     hooks:
       - id: shellcheck
 
   - repo: https://gitlab.com/pycqa/flake8
-    rev: 3.8.0a2
+    rev: 3.8.3
     hooks:
       - id: flake8
