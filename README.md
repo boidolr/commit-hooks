@@ -30,6 +30,7 @@ Add this to your `.pre-commit-config.yaml`
 - `format-message`: Ensure commit message conforms to format of headline followed by two empty lines.
 - `spellcheck-message`: Test the message against a known dictionary.
     - `--language` can be used to switch to other supported languages then English (`en`).
+    - `--dictionary` will specify a (non-default) dictionary to be used with autocorrect. The format is a JSON (string, integer) file.
 - `restore-message`: Restore commit message.
     In case the previous commit was aborted this hook restores the content of `COMMIT_EDITMSG` the commit message into the editor.
     Similar to `git commit --reuse-message=.git/COMMIT_EDITMSG`.
