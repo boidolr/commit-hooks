@@ -24,7 +24,7 @@
   description: Check spelling of message against known dictionary.
   language: python_venv
   entry: spellcheck-message
-  additional_dependencies: [autocorrect==1.3.0]
+  additional_dependencies: [autocorrect==2.0.0]
   stages: [commit-msg]
 
 - id: check-message
