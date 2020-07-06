@@ -90,7 +90,7 @@
   description: Check whether images can be reencoded to decrease file size.
   language: python_venv
   entry: optimize-image
-  additional_dependencies: [pillow==7.1.2,scour==0.37]
+  additional_dependencies: [pillow==7.2.0,scour==0.37]
   files: \.(png|jpe?g)$
   stages: [commit]
 
