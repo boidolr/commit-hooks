@@ -11,7 +11,7 @@ See also: https://github.com/pre-commit/pre-commit-hooks
 Add this to your `.pre-commit-config.yaml`
 
     -   repo: https://github.com/boidolr/pre-commit-hooks
-        rev: v1.4.1  # Use the ref you want to point at
+        rev: v1.4.6  # Use the ref you want to point at
         hooks:
         -   id: console-logging
         # -   id: ...

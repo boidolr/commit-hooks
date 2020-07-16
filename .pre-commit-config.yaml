@@ -15,7 +15,7 @@ fail_fast: false
 exclude: ^$
 repos:
   - repo: https://github.com/boidolr/pre-commit-hooks
-    rev: v1.4.2
+    rev: v1.4.6
     hooks:
       # - id: prepare-message
       #   args:
@@ -69,12 +69,12 @@ repos:
       - id: rst-backticks
 
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v0.781
+    rev: v0.782
     hooks:
       - id: mypy
 
   - repo: https://github.com/jumanjihouse/pre-commit-hooks
-    rev: 2.1.3
+    rev: 2.1.4
     hooks:
       - id: shellcheck
 
