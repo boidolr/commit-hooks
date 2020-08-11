@@ -9,4 +9,4 @@ pytest-cov
 pytest-flake8
 pytest-mypy
 
-scour==0.37
+scour==0.38
