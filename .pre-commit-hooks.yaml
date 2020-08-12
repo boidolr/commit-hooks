@@ -1,14 +1,14 @@
 - id: restore-message
   name: Restore commit message
   description: Restore commit message after an earlier commit was aborted
-  language: python_venv
+  language: python
   entry: restore-message
   stages: [prepare-commit-msg]
 
 - id: prepare-message
   name: Prepare commit message
   description: Add prefix from feature branch to commit message
-  language: python_venv
+  language: python
   entry: prepare-message
   stages: [prepare-commit-msg]
 
@@ -22,7 +22,7 @@
 - id: spellcheck-message
   name: Check spelling of message
   description: Check spelling of message against known dictionary.
-  language: python_venv
+  language: python
   entry: spellcheck-message
   additional_dependencies: [autocorrect==2.0.0]
   stages: [commit-msg]
@@ -30,14 +30,14 @@
 - id: check-message
   name: Check message formatting (deprecated)
   description: Ensure commit message has correct formatting between header and description
-  language: python_venv
+  language: python
   entry: format-message
   stages: [commit-msg]
 
 - id: format-message
   name: Check message formatting
   description: Ensure commit message has correct formatting between header and description
-  language: python_venv
+  language: python
   entry: format-message
   stages: [commit-msg]
 
@@ -80,7 +80,7 @@
 - id: ng-lint
   name: Execute ng lint
   description: Execute ng lint from the node_modules directory.
-  language: python_venv
+  language: python
   entry: check-ng-lint
   types: [ts]
   stages: [commit]
@@ -88,7 +88,7 @@
 - id: optimize-image
   name: Optimize images
   description: Check whether images can be reencoded to decrease file size.
-  language: python_venv
+  language: python
   entry: optimize-image
   additional_dependencies: [pillow==7.2.0,scour==0.38]
   files: \.(png|jpe?g)$
