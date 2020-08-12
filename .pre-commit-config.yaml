@@ -7,7 +7,7 @@
 # Update repos:
 # pre-commit autoupdate
 ---
-minimum_pre_commit_version: 1.14.0
+minimum_pre_commit_version: 2.4.0
 default_language_version:
   python: python3
 default_stages: [commit]
