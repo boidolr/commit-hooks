@@ -9,4 +9,6 @@ pytest-cov
 pytest-flake8
 pytest-mypy
 
+pre-commit
+
 scour==0.38
