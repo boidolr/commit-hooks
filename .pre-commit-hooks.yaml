@@ -12,13 +12,6 @@
   entry: prepare-message
   stages: [prepare-commit-msg]
 
-- id: save-message
-  name: Save commit message (deprecated)
-  description: Save commit message in case the commit gets aborted (deprecated)
-  language: system
-  entry: echo
-  stages: [commit-msg]
-
 - id: spellcheck-message
   name: Check spelling of message
   description: Check spelling of message against known dictionary.
@@ -42,37 +35,37 @@
   stages: [commit-msg]
 
 - id: console-debugger
-  name: Remove console debugger statements
-  description: Remove lines in JavaScript and TypeScript containing debugger statements.
-  language: system
-  entry: "sed  -E -e '/debugger/d' -i ''"
+  name: Check console debugger statements
+  description: Check for lines in JavaScript and TypeScript containing debugger statements.
+  language: pygrep
+  entry: '\bdebugger\b'
   types: [text]
   files: \.(ts|js)$
   stages: [commit]
 
 - id: console-logging
-  name: Remove console logging
-  description: Remove lines in JavaScript and TypeScript containing console logging.
-  language: system
-  entry: "sed  -E -e '/console\\.(log|info|trace|dir|warn)/d' -i ''"
+  name: Check console logging
+  description: Check for lines in JavaScript and TypeScript containing console logging.
+  language: pygrep
+  entry: '\bconsole\.(?:log|info|trace|dir|warn|error)\b'
   types: [text]
   files: \.(ts|js)$
   stages: [commit]
 
 - id: console-window
-  name: Remove window access
-  description: Remove lines in JavaScript and TypeScript containing window access.
-  language: system
-  entry: "sed  -E -e '/window/d' -i ''"
+  name: Check window access
+  description: Check for lines in JavaScript and TypeScript containing window access.
+  language: pygrep
+  entry: '\bwindow\b'
   types: [text]
   files: \.(ts|js)$
   stages: [commit]
 
 - id: check-test
-  name: Remove focus & ignore from tests
-  description: Remove focus and ignore from tests in JavaScript and TypeScript.
-  language: system
-  entry: "sed -E -e 's/[fx](describe|it)\\(/\\1(/g' -i ''"
+  name: Check focus & ignore from tests
+  description: Check for focus and ignore from tests in JavaScript and TypeScript.
+  language: pygrep
+  entry: '\b[fx](?:describe|it)'
   types: [text]
   files: \.spec\.(ts|js)$
   stages: [commit]

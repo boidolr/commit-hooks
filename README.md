@@ -44,9 +44,9 @@ Add this to your `.pre-commit-config.yaml`
 - `optimize-image`: Compress `png`, `jpeg` and `svg` images.
     - `--threshold` can be used to configure which size difference should be used to keep the image.
     - `--quality` can be used to configure quality setting for a JPG image.
-- `console-debugger`: Remove lines containing JavaScript `debugger` statements.
-- `console-logging`: Remove lines containing JavaScript `console` logging statements.
-- `console-window`: Remove lines containing JavaScript `window` statements.
+- `console-debugger`: Check for lines containing JavaScript `debugger` statements.
+- `console-logging`: Check for lines containing JavaScript `console` logging statements.
+- `console-window`: Check for lines containing JavaScript `window` statements.
 - `properties-whitespace`: Remove whitespace around equal signs in property files.
 
 
