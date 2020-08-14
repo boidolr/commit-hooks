@@ -78,6 +78,14 @@
   types: [ts]
   stages: [commit]
 
+- id: search-replace
+  name: Search and replace patterns
+  description: Search and replace given patterns.
+  language: python
+  entry: search-replace
+  exclude_types: [binary]
+  stages: [commit]
+
 - id: optimize-image
   name: Optimize images
   description: Check whether images can be reencoded to decrease file size.
