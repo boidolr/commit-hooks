@@ -98,7 +98,10 @@
 - id: properties-whitespace
   name: Remove whitespace in property files
   description: Remove whitespace around '=' in property files.
-  language: system
-  entry: "sed -E -e 's/^([^=[:space:]]+)[[:space:]]*=[[:space:]]*/\\1=/g' -i ''"
+  language: python
+  entry: search-replace
+  args:
+    - '--search="^([^=\s]+)\s*=\s*"'
+    - '--replacement="\1="'
   types: [java-properties]
   stages: [commit]
