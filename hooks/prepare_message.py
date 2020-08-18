@@ -8,22 +8,15 @@ from typing import Pattern, Optional, Match, Sequence
 from .command_util import _execute_command
 
 
-def _get_rebase_merge_path() -> Optional[str]:
-    return _execute_command('git', 'rev-parse', '--git-path', 'rebase-merge')
+def _get_git_path(file_name: str) -> Optional[str]:
+    return _execute_command('git', 'rev-parse', '--git-path', file_name)
 
 
-def _get_rebase_apply_path() -> Optional[str]:
-    return _execute_command('git', 'rev-parse', '--git-path', 'rebase-apply')
-
-
-def _get_rebase_in_progress() -> bool:
-    path = _get_rebase_merge_path()
-    if path and pathlib.Path(path).exists():
-        return True
-
-    path = _get_rebase_apply_path()
-    if path and pathlib.Path(path).exists():
-        return True
+def _git_op_in_progress() -> bool:
+    for file_name in ('rebase-merge', 'rebase-apply', 'MERGE_HEAD'):
+        path = _get_git_path(file_name)
+        if path and pathlib.Path(path).exists():
+            return True
 
     return False
 
@@ -68,13 +61,13 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
                         help='Pattern to match the commit message prefix (default: %(default)s).')
     args = parser.parse_args(argv)
 
+    if _git_op_in_progress():
+        return 0
+
     branch_name = _get_branch_name()
     if branch_name is None:
-        if _get_rebase_in_progress():
-            return 0
-        else:
-            print('Not on a branch, returning early.', file=sys.stderr)
-            return 1
+        print('Not on a branch, returning early.', file=sys.stderr)
+        return 1
 
     if args.ignore_branch is not None and branch_name in args.ignore_branch:
         return 0
@@ -83,7 +76,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     match = re.match(args.pattern, branch_name)
     updated = _update_message(args.filename, match, re.compile(args.prefix))
     if not updated:
-        print('Could not update message on branch "{}"'.format(branch_name), file=sys.stderr)
+        print(f'Could not update message on branch "{branch_name}"', file=sys.stderr)
         return 1
 
     return 0
