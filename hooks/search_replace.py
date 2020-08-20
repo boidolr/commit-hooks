@@ -9,15 +9,21 @@ from typing import Optional, Pattern, Sequence
 def _search_replace(filename: str, pattern: Pattern[str], replacement: str) -> int:
     with open(filename, 'r') as fh:
         content = fh.readlines()
-        processed = [pattern.sub(replacement, line) for line in content]
 
-    if content != processed:
+    ret = 0
+    for index, line in enumerate(content):
+        processed = pattern.sub(replacement, line)
+        if processed != line:
+            print(f'{filename}:{index + 1}:', end='')
+            print(line)
+            content[index] = processed
+            ret = 1
+
+    if ret != 0:
         with open(filename, 'w') as fh:
-            for line in processed:
-                fh.write(line)
-        return 1
+            fh.writelines(content)
 
-    return 0
+    return ret
 
 
 def main(argv: Optional[Sequence[str]] = None) -> int:
@@ -34,10 +40,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     ret = 0
     pattern = re.compile(args.pattern)
     for filename in args.filenames:
-        code = _search_replace(filename, pattern, args.replacement)
-        if code == 1:
-            print(f'Replaced in {filename}')
-            ret = 1
+        ret |= _search_replace(filename, pattern, args.replacement)
     return ret
 
 
