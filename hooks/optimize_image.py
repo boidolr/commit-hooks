@@ -38,8 +38,11 @@ def _optimize_image(path: str, threshold: int, quality: int) -> None:
     else:
         output = _optimize_jpeg_png(fp, quality)
 
-    if fp.stat().st_size > output.stat().st_size + threshold:
+    original_size = fp.stat().st_size
+    diff = original_size - output.stat().st_size
+    if diff > threshold:
         output.replace(fp)
+        print(f'optimized {path} by {diff} of {original_size} bytes')
     else:
         output.unlink()
 
@@ -57,7 +60,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         try:
             _optimize_image(file, args.threshold, args.quality)
         except Exception as exc:
-            print('Failed optimization for {} ({})'.format(','.join(args.filenames), exc))
+            print('Failed optimization for {} ({})'.format(','.join(args.filenames), exc), file=sys.stderr)
             return 1
 
     return 0
