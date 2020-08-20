@@ -1,21 +1,24 @@
 #!/usr/bin/env python3
 import argparse
-import pathlib
 import re
 import sys
+from pathlib import Path
 from typing import Pattern, Optional, Match, Sequence
 
 from .command_util import _execute_command
 
 
 def _get_git_path(file_name: str) -> Optional[str]:
-    return _execute_command('git', 'rev-parse', '--git-path', file_name)
+    return _execute_command('git', 'rev-parse', '--git-common-dir', '--git-path', file_name)
 
 
 def _git_op_in_progress() -> bool:
-    for file_name in ('rebase-merge', 'rebase-apply', 'MERGE_HEAD'):
-        path = _get_git_path(file_name)
-        if path and pathlib.Path(path).exists():
+    git_dir = _get_git_path('.')
+    if not git_dir:
+        raise FileNotFoundError('Failed to find git directory')
+    path = Path(git_dir)
+    for file_name in ('rebase-merge', 'rebase-apply', 'MERGE_HEAD', 'MERGE_MSG'):
+        if path.joinpath(file_name).exists():
             return True
 
     return False
