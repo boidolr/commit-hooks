@@ -25,7 +25,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     try:
         _execute_command(*command)
     except Exception as exc:
-        print('Failed execute ng lint for {} ({})'.format(','.join(args.filenames), exc))
+        print('Failed execute ng lint for {} ({})'.format(','.join(args.filenames), exc), file=sys.stderr)
         return 1
     else:
         return 0
