@@ -6,8 +6,8 @@ import sys
 from typing import Optional, Pattern, Sequence
 
 
-def _search_replace(filename: str, pattern: Pattern[str], replacement: str) -> int:
-    with open(filename, 'r') as fh:
+def _search_replace(filename: str, pattern: Pattern[bytes], replacement: bytes) -> int:
+    with open(filename, 'rb') as fh:
         content = fh.readlines()
 
     ret = 0
@@ -15,12 +15,12 @@ def _search_replace(filename: str, pattern: Pattern[str], replacement: str) -> i
         processed = pattern.sub(replacement, line)
         if processed != line:
             print(f'{filename}:{index + 1}:', end='')
-            print(line)
+            print(line.rstrip(b'\r\n').decode(errors='replace'))
             content[index] = processed
             ret = 1
 
     if ret != 0:
-        with open(filename, 'w') as fh:
+        with open(filename, 'wb') as fh:
             fh.writelines(content)
 
     return ret
@@ -38,9 +38,10 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     args = parser.parse_args(argv)
 
     ret = 0
-    pattern = re.compile(args.pattern)
+    pattern = re.compile(args.pattern.encode())
+    replacement = args.replacement.encode()
     for filename in args.filenames:
-        ret |= _search_replace(filename, pattern, args.replacement)
+        ret |= _search_replace(filename, pattern, replacement)
     return ret
 
 
