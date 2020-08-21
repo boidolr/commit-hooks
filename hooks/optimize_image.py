@@ -49,11 +49,11 @@ def _optimize_image(path: str, threshold: int, quality: int) -> None:
 
 def main(argv: Optional[Sequence[str]] = None) -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument('filenames', nargs='*', help='Filenames to optimize.')
+    parser.add_argument('filenames', nargs='*', help='File names to optimize.')
     parser.add_argument('-t', '--threshold', dest='threshold', default=1024, type=int,
-                        help='Minimum improvment to replace file in bytes (default: %(default)s')
+                        help='Minimum improvment to replace file in bytes (default: %(default)s)')
     parser.add_argument('-q', '--quality', dest='quality', default=80, type=int,
-                        help='Quality to use for JPG images (default: %(default)s')
+                        help='Quality to use for JPG images (default: %(default)s)')
     args = parser.parse_args(argv)
 
     for file in args.filenames:

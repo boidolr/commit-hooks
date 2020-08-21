@@ -7,7 +7,7 @@ from .command_util import _execute_command
 
 def main(argv: Optional[Sequence[str]] = None) -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument('filenames', nargs='*', help='Filenames to check.')
+    parser.add_argument('filenames', nargs='*', help='File names to check.')
     parser.add_argument('--fix', action='store_true',
                         help='Use ng lint to fix issues where possible.')
     parser.add_argument('--ng-path', dest='path', default='node_modules/.bin/ng',
