@@ -43,7 +43,7 @@ def _update_message(commit_msg_filepath: str, branch_match: Optional[Match[str]]
     prefix = '{}: '.format(issue)
     with open(commit_msg_filepath, 'r+') as fh:
         commit_msg = fh.read()
-        if not commit_msg.startswith((prefix, 'Merge', 'Revert')):
+        if not commit_msg.startswith((prefix, 'Merge', 'Revert', 'fixup!', 'squash!')):
             msg = prefix_pattern.sub('', commit_msg, count=1)
             fh.seek(0, 0)
             fh.write(prefix)
