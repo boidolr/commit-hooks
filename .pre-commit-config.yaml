@@ -18,8 +18,7 @@ repos:
     rev: v2.0
     hooks:
       # - id: prepare-message
-      #   args:
-      #     - '--ignore-branch=master'
+      #   args: [--ignore-branch=master]
       - id: restore-message
       - id: console-debugger
       - id: console-logging
@@ -27,8 +26,7 @@ repos:
       - id: check-test
       - id: properties-whitespace
       - id: ng-lint
-        args:
-          - '--fix'
+        args: [--fix]
       - id: optimize-image
 
   - repo: local
@@ -48,17 +46,11 @@ repos:
       - id: end-of-file-fixer
       - id: mixed-line-ending
         files: \.(java|groovy|properties|ts|js|scss|yaml)$
-        args:
-          - '--fix=lf'
+        args: [--fix=lf]
       - id: no-commit-to-branch
-        args:
-          - '--pattern=^release'
-          - '--branch=develop'
+        args: [--pattern=^release, --branch=develop]
       - id: pretty-format-json
-        args:
-          - '--autofix'
-          - '--indent=4'
-          - '--no-sort-keys'
+        args: [--autofix, --indent=4, --no-sort-keys]
       - id: requirements-txt-fixer
       - id: trailing-whitespace
 
@@ -67,6 +59,12 @@ repos:
     hooks:
       - id: python-use-type-annotations
       - id: rst-backticks
+
+  - repo: https://github.com/asottile/pyupgrade
+    rev: v2.7.2
+    hooks:
+    - id: pyupgrade
+      args: [--py36-plus]
 
   - repo: https://github.com/pre-commit/mirrors-mypy
     rev: v0.782
