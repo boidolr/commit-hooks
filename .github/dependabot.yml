@@ -13,3 +13,7 @@ updates:
       - dependency-name: "pytest-cov"
       - dependency-name: "pytest-flake8"
       - dependency-name: "pytest-mypy"
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
