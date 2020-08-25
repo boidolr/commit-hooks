@@ -43,7 +43,7 @@ jobs:
         id: git-check-black
         run: echo ::set-output name=modified::$(if git diff-index --quiet HEAD --; then echo "false"; else echo "true"; fi)
       - name: Push changes
-        if: steps.git-check.outputs.modified == 'true'
+        if: steps.git-check-black.outputs.modified == 'true'
         run: |
           git config --global user.name github-actions
           git config --global user.email '${GITHUB_ACTOR}@users.noreply.github.com'
@@ -66,7 +66,7 @@ jobs:
         id: git-check-updates
         run: echo ::set-output name=modified::$(if git diff-index --quiet HEAD --; then echo "false"; else echo "true"; fi)
       - name: Push changes
-        if: steps.git-check.outputs.modified == 'true'
+        if: steps.git-check-updates.outputs.modified == 'true'
         run: |
           git config --global user.name github-actions
           git config --global user.email '${GITHUB_ACTOR}@users.noreply.github.com'
