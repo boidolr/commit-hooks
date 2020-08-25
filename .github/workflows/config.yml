@@ -40,7 +40,7 @@ jobs:
       - name: Run black
         run: black .
       - name: Check for modified files after black run
-        id: git-check
+        id: git-check-black
         run: echo ::set-output name=modified::$(if git diff-index --quiet HEAD --; then echo "false"; else echo "true"; fi)
       - name: Push changes
         if: steps.git-check.outputs.modified == 'true'
@@ -49,4 +49,27 @@ jobs:
           git config --global user.email '${GITHUB_ACTOR}@users.noreply.github.com'
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
           git commit -am "Format Python code with psf/black push"
+          git push origin HEAD:$GITHUB_REF
+      - name: Synchronize dependencies
+        shell: python
+        run: |
+          import fileinput, re
+          with open('requirements.txt') as f:
+            versions = [ line.strip().split('==') for line in f.readlines() ]
+          versions = [ (re.compile(v[0] + r'==[.0-9]+'), v[0] + '==' + v[1]) for v in versions ]
+          with fileinput.input(files=('setup.cfg', '.pre-commit-hooks.yaml'), inplace=True) as f:
+              for line in f:
+                  for pattern, replacement in versions:
+                    line = pattern.sub(replacement, line)
+                  print(line, end='')
+      - name: Check for modified files update
+        id: git-check-updates
+        run: echo ::set-output name=modified::$(if git diff-index --quiet HEAD --; then echo "false"; else echo "true"; fi)
+      - name: Push changes
+        if: steps.git-check.outputs.modified == 'true'
+        run: |
+          git config --global user.name github-actions
+          git config --global user.email '${GITHUB_ACTOR}@users.noreply.github.com'
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+          git commit -am "Update dependencies with push"
           git push origin HEAD:$GITHUB_REF
