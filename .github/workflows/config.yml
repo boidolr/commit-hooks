@@ -41,7 +41,7 @@ jobs:
         run: black .
       - name: Check for modified files after black run
         id: git-check-black
-        run: echo ::set-output name=modified::$(if git diff-index --quiet HEAD --; then echo "false"; else echo "true"; fi)
+        run: echo ::set-output name=modified::$(if [[ -z "$(git status --porcelain)" ]]; then echo "false"; else echo "true"; fi)
       - name: Push black changes
         if: steps.git-check-black.outputs.modified == 'true'
         run: |
@@ -64,7 +64,7 @@ jobs:
                   print(line, end='')
       - name: Check for modified files update
         id: git-check-updates
-        run: echo ::set-output name=modified::$(if git diff-index --quiet HEAD --; then echo "false"; else echo "true"; fi)
+        run: echo ::set-output name=modified::$(if [[ -z "$(git status --porcelain)" ]]; then echo "false"; else echo "true"; fi)
       - name: Push update changes
         if: steps.git-check-updates.outputs.modified == 'true'
         run: |
