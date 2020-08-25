@@ -7,20 +7,20 @@ from typing import Optional, Pattern, Sequence
 
 
 def _search_replace(filename: str, pattern: Pattern[bytes], replacement: bytes) -> int:
-    with open(filename, 'rb') as fh:
+    with open(filename, "rb") as fh:
         content = fh.readlines()
 
     ret = 0
     for index, line in enumerate(content):
         processed = pattern.sub(replacement, line)
         if processed != line:
-            print(f'{filename}:{index + 1}:', end='')
-            print(line.rstrip(b'\r\n').decode(errors='replace'))
+            print(f"{filename}:{index + 1}:", end="")
+            print(line.rstrip(b"\r\n").decode(errors="replace"))
             content[index] = processed
             ret = 1
 
     if ret != 0:
-        with open(filename, 'wb') as fh:
+        with open(filename, "wb") as fh:
             fh.writelines(content)
 
     return ret
@@ -28,13 +28,13 @@ def _search_replace(filename: str, pattern: Pattern[bytes], replacement: bytes) 
 
 def main(argv: Optional[Sequence[str]] = None) -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument('filenames', nargs='*', help='File names to search')
+    parser.add_argument("filenames", nargs="*", help="File names to search")
     parser.add_argument(
-        '-s', '--search', dest='pattern',
-        help='Regular expression to use for search')
+        "-s", "--search", dest="pattern", help="Regular expression to use for search"
+    )
     parser.add_argument(
-        '-r', '--replacement',
-        help='Replacement for successful matches')
+        "-r", "--replacement", help="Replacement for successful matches"
+    )
     args = parser.parse_args(argv)
 
     ret = 0
@@ -45,5 +45,5 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     return ret
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     sys.exit(main())

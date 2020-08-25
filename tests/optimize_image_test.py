@@ -6,11 +6,7 @@ from hooks.optimize_image import main
 
 
 @pytest.mark.parametrize(
-    ('image',),
-    (
-        ('test.png',),
-        ('test.svg',),
-    ),
+    ("image",), (("test.png",), ("test.svg",),),
 )
 def test_compress_png(image, tmpdir):
     path = Path(tmpdir) / image

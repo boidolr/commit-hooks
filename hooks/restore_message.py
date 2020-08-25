@@ -8,7 +8,7 @@ from .command_util import _execute_command
 
 
 def _get_backup_file_path() -> Optional[str]:
-    return _execute_command('git', 'rev-parse', '--git-path', 'COMMIT_EDITMSG')
+    return _execute_command("git", "rev-parse", "--git-path", "COMMIT_EDITMSG")
 
 
 def _restore_message(backup_file: str, message_file: str) -> None:
@@ -17,26 +17,28 @@ def _restore_message(backup_file: str, message_file: str) -> None:
         return
 
     message_path = pathlib.Path(message_file)
-    message_content = message_path.read_text(encoding='utf-8')
+    message_content = message_path.read_text(encoding="utf-8")
 
     whitespace_or_comments = not any(
         not line.isspace()
         for line in message_content.splitlines()
-        if not line.startswith('#')
+        if not line.startswith("#")
     )
     if len(message_content) == 0 or whitespace_or_comments:
-        backup_content = backup_path.read_text(encoding='utf-8')
-        lines = [line for line in backup_content.splitlines() if not line.startswith('#')]
-        with message_path.open('w') as fh:
-            fh.write('# last commit message:\n# ')
-            fh.write('\n# '.join(lines))
-            fh.write('\n')
+        backup_content = backup_path.read_text(encoding="utf-8")
+        lines = [
+            line for line in backup_content.splitlines() if not line.startswith("#")
+        ]
+        with message_path.open("w") as fh:
+            fh.write("# last commit message:\n# ")
+            fh.write("\n# ".join(lines))
+            fh.write("\n")
             fh.write(message_content)
 
 
 def main(argv: Optional[Sequence[str]] = None) -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument('filename', help='Commit message file path')
+    parser.add_argument("filename", help="Commit message file path")
     args = parser.parse_args(argv)
 
     backup_file = _get_backup_file_path()
@@ -49,5 +51,5 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     return 0
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     sys.exit(main())
