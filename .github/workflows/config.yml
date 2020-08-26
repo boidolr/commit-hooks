@@ -83,8 +83,8 @@ jobs:
       - name: Push black changes
         if: steps.git-check-black.outputs.modified == 'true'
         run: |
-          git config --global user.name github-actions
-          git config --global user.email '${GITHUB_ACTOR}@users.noreply.github.com'
+          git config --local user.name github-actions
+          git config --local user.email "$(git --no-pager log --format=format:'%ae' -n 1)"
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
           git commit -am "Format Python code with psf/black push"
           git push origin HEAD:$GITHUB_REF
@@ -109,8 +109,8 @@ jobs:
       - name: Push update changes
         if: steps.git-check-updates.outputs.modified == 'true'
         run: |
-          git config --global user.name github-actions
-          git config --global user.email '${GITHUB_ACTOR}@users.noreply.github.com'
+          git config --local user.name github-actions
+          git config --local user.email "$(git --no-pager log --format=format:'%ae' -n 1)"
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
           git commit -am "Update dependencies with push"
           git push origin HEAD:$GITHUB_REF
