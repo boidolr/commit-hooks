@@ -58,7 +58,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - id: setup-python
-        uses: actions/setup-python@v1
+        uses: actions/setup-python@v2.1.2
 
       - name: Get pip black cache dir
         id: pip-cache-black
