@@ -34,7 +34,7 @@ def _get_branch_name() -> Optional[str]:
 def _is_wrong_message_prefix(
     commit_msg_filepath: str, prefix_pattern: Pattern[str]
 ) -> bool:
-    with open(commit_msg_filepath, "r") as fh:
+    with open(commit_msg_filepath) as fh:
         commit_msg_start = fh.readline()
         return prefix_pattern.match(commit_msg_start) is None
 
@@ -48,7 +48,7 @@ def _update_message(
         return False
 
     issue = branch_match.group(1)
-    prefix = "{}: ".format(issue)
+    prefix = f"{issue}: "
     with open(commit_msg_filepath, "r+") as fh:
         commit_msg = fh.read()
         if not commit_msg.startswith((prefix, "Merge", "Revert", "fixup!", "squash!")):

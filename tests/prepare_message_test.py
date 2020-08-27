@@ -16,7 +16,10 @@ def test_abort_when_no_branch(temp_git_dir):
 
 @pytest.mark.parametrize(
     ("branch", "content", "return_code"),
-    (("develop", "foo", 1), ("master", "foo", 0),),
+    (
+        ("develop", "foo", 1),
+        ("master", "foo", 0),
+    ),
 )
 def test_handle_ignored_branch(branch, content, return_code, temp_git_dir):
     path = temp_git_dir.join("message")
@@ -24,7 +27,15 @@ def test_handle_ignored_branch(branch, content, return_code, temp_git_dir):
     with temp_git_dir.as_cwd():
         # now on branch
         _execute_command("git", "checkout", "-b", branch)
-        assert main(("--ignore-branch=master", path.strpath,)) == return_code
+        assert (
+            main(
+                (
+                    "--ignore-branch=master",
+                    path.strpath,
+                )
+            )
+            == return_code
+        )
         assert path.read() == content
 
 

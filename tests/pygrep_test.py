@@ -12,14 +12,22 @@ HOOKS = {
 
 
 @pytest.mark.parametrize(
-    "s", ("tap(() => {debugger;}),", "foo(); debugger;",),
+    "s",
+    (
+        "tap(() => {debugger;}),",
+        "foo(); debugger;",
+    ),
 )
 def test_console_debugger_positive(s):
     assert HOOKS["console-debugger"].search(s)
 
 
 @pytest.mark.parametrize(
-    "s", ("debug()", '"debugging"',),
+    "s",
+    (
+        "debug()",
+        '"debugging"',
+    ),
 )
 def test_console_debugger_negative(s):
     assert not HOOKS["console-debugger"].search(s)
@@ -41,21 +49,32 @@ def test_console_logging_positive(s):
 
 
 @pytest.mark.parametrize(
-    "s", ('console.time("obj");', 'console.timeEnd("obj")', "console.group(data)",),
+    "s",
+    (
+        'console.time("obj");',
+        'console.timeEnd("obj")',
+        "console.group(data)",
+    ),
 )
 def test_console_logging_negative(s):
     assert not HOOKS["console-logging"].search(s)
 
 
 @pytest.mark.parametrize(
-    "s", (")(window));", ' window.location = "/foo"', "window.onload = function() {",),
+    "s",
+    (
+        ")(window));",
+        ' window.location = "/foo"',
+        "window.onload = function() {",
+    ),
 )
 def test_console_window_positive(s):
     assert HOOKS["console-window"].search(s)
 
 
 @pytest.mark.parametrize(
-    "s", ('"win" + "dow"',),
+    "s",
+    ('"win" + "dow"',),
 )
 def test_console_window_negative(s):
     assert not HOOKS["console-window"].search(s)
@@ -75,7 +94,11 @@ def test_check_test_positive(s):
 
 
 @pytest.mark.parametrize(
-    "s", ('describe("block", () => {', 'it("case", () => {',),
+    "s",
+    (
+        'describe("block", () => {',
+        'it("case", () => {',
+    ),
 )
 def test_check_test_negative(s):
     assert not HOOKS["check-test"].search(s)

@@ -5,7 +5,10 @@ from hooks.spellcheck_message import main
 
 @pytest.mark.parametrize(
     ("input_s", "expected"),
-    (("Fixnga bug", "Fixing bug"), ("And a longr mesage", "And a long message"),),
+    (
+        ("Fixnga bug", "Fixing bug"),
+        ("And a longr mesage", "And a long message"),
+    ),
 )
 def test_suggests_correct_message(input_s, expected, tmpdir, dictionary_path, capsys):
     path = tmpdir.join("message")
@@ -16,7 +19,11 @@ def test_suggests_correct_message(input_s, expected, tmpdir, dictionary_path, ca
 
 
 @pytest.mark.parametrize(
-    ("input_s",), (("",), ("Same message",),),
+    ("input_s",),
+    (
+        ("",),
+        ("Same message",),
+    ),
 )
 def test_keeps_correct_message(input_s, tmpdir, dictionary_path, capsys):
     path = tmpdir.join("message")

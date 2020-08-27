@@ -15,7 +15,7 @@ def _check_message_spelling(
     commit_msg_filepath: str, language: str, dictionary: Optional[Dictionary] = None
 ) -> int:
     spell = Speller(lang=language, nlp_data=dictionary)
-    with open(commit_msg_filepath, "r") as fh:
+    with open(commit_msg_filepath) as fh:
         content = fh.read()
 
         correction = spell(content)
