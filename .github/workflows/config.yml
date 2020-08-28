@@ -44,14 +44,8 @@ jobs:
       - name: Install plugin
         run: pip install pytest-github-actions-annotate-failures
 
-      # - name: Install from source (required for the pre-commit tests)
-      #   run: pip install .
-
       - name: Execute pytest
-        run: pytest --cov=./ --cov-report=xml
-
-      # - name: Upload coverage
-      #   uses: codecov/codecov-action@v1
+        run: pytest
 
   code-checks:
     runs-on: ubuntu-latest
@@ -94,7 +88,9 @@ jobs:
 
       - name: Check for modified files after black run
         id: git-check-black
-        run: echo ::set-output name=modified::$(if [[ -z "$(git status --porcelain)" ]]; then echo "false"; else echo "true"; fi)
+        run: |
+          MODIFIED=$(if [[ -z "$(git status --porcelain)" ]]; then echo "false"; else echo "true"; fi)
+          echo ::set-output name=modified::${MODIFIED}
 
       - name: Push black changes
         if: steps.git-check-black.outputs.modified == 'true'
@@ -106,18 +102,22 @@ jobs:
         shell: python
         run: |
           import fileinput, re
-          with open('requirements.txt') as f:
+          source = 'requirements.txt'
+          targets = ('setup.cfg', '.pre-commit-hooks.yaml')
+          with open(source) as f:
             versions = [ line.strip().split('==') for line in f.readlines() ]
           versions = [ (re.compile(v[0] + r'==[.0-9]+'), v[0] + '==' + v[1]) for v in versions ]
-          with fileinput.input(files=('setup.cfg', '.pre-commit-hooks.yaml'), inplace=True) as f:
+          with fileinput.input(files=targets, inplace=True) as f:
               for line in f:
                   for pattern, replacement in versions:
                     line = pattern.sub(replacement, line)
                   print(line, end='')
 
-      - name: Check for modified files update
+      - name: Check for modified files after updates
         id: git-check-updates
-        run: echo ::set-output name=modified::$(if [[ -z "$(git status --porcelain)" ]]; then echo "false"; else echo "true"; fi)
+        run: |
+          MODIFIED=$(if [[ -z "$(git status --porcelain)" ]]; then echo "false"; else echo "true"; fi)
+          echo ::set-output name=modified::${MODIFIED}
 
       - name: Push update changes
         if: steps.git-check-updates.outputs.modified == 'true'
