@@ -35,8 +35,11 @@ jobs:
         run: pre-commit autoupdate
 
       - name: Ensure pre-commit config remains functional
+        id: pre-commit-check
         continue-on-error: true
-        run: echo ::set-output name=modified::$(SKIP=optimize-image pre-commit run --all-files > /dev/null
+        run: |
+          SUCCESS=$(SKIP=optimize-image pre-commit run --all-files > /dev/null && echo 'true' || echo 'false')
+          echo ::set-output name=success::${SUCCESS}
 
       - name: Setup git author
         run: |
@@ -51,7 +54,9 @@ jobs:
           echo "::set-output name=updated::${UPDATED}"
 
       - name: Push pre-commit changes
-        if: steps.git-check-changes.outputs.updated == 'true'
+        if: >
+          steps.git-check-changes.outputs.updated == 'true' &&
+          steps.pre-commit-check.outputs.success == 'true'
         run: |
           git checkout -b gitub-action/pre-commit
           git commit -am "Update pre-commit config"
@@ -73,4 +78,3 @@ jobs:
               head: 'gitub-action/pre-commit',
               base: 'master',
             });
-
