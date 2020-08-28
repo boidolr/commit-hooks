@@ -66,18 +66,16 @@ jobs:
       - id: setup-python
         uses: actions/setup-python@v2.1.2
 
-      - name: Get pip black cache dir
-        id: pip-cache-black
+      - name: Get pip cache dir
+        id: pip-cache
         run: |
           echo "::set-output name=dir::$(pip cache dir)"
 
       - name: pip cache
         uses: actions/cache@v2
         with:
-          path: ${{ steps.pip-cache-black.outputs.dir }}
-          key: ${{ runner.os }}-pip-black
-          restore-keys: |
-            ${{ runner.os }}-pip-${{ steps.setup-python.outputs.python-version }}
+          path: ${{ steps.pip-cache.outputs.dir }}
+          key: ${{ runner.os }}-pip-${{ steps.setup-python.outputs.python-version }}
 
       - name: Setup git author
         run: |
