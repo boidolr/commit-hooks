@@ -1,0 +1,76 @@
+name: Automatic update
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "5 7 9 * *"
+
+jobs:
+  update-pre-commit:
+    runs-on: ubuntu-latest
+    env:
+      GIT_USER: github-actions
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - id: setup-python
+        uses: actions/setup-python@v2.1.2
+
+      - name: Get pip cache dir
+        id: pip-cache
+        run: |
+          CACHE_DIR=$(pip cache dir)
+          echo "::set-output name=dir::${CACHE_DIR}"
+
+      - name: pip cache
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.pip-cache.outputs.dir }}
+          key: ${{ runner.os }}-pip-${{ steps.setup-python.outputs.python-version }}
+
+      - name: Install pre-commit
+        run: pip install pre-commit
+
+      - name: Update pre-commit config
+        run: pre-commit autoupdate
+
+      - name: Ensure pre-commit config remains functional
+        continue-on-error: true
+        run: echo ::set-output name=modified::$(SKIP=optimize-image pre-commit run --all-files > /dev/null
+
+      - name: Setup git author
+        run: |
+          git config --local user.name ${GIT_USER}
+          git config --local user.email "$(git --no-pager log --format=format:'%ae' -n 1)"
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+
+      - name: Check for modified files after config update
+        id: git-check-changes
+        run: |
+          UPDATED=$(if [[ -z "$(git status --porcelain)" ]]; then echo "false"; else echo "true"; fi)
+          echo "::set-output name=updated::${UPDATED}"
+
+      - name: Push pre-commit changes
+        if: steps.git-check-changes.outputs.updated == 'true'
+        run: |
+          git checkout -b gitub-action/pre-commit
+          git commit -am "Update pre-commit config"
+          git push --set-upstream origin HEAD:gitub-action/pre-commit
+
+      - name: Create pre-commit update pull request
+        uses: "actions/github-script@v3"
+        with:
+          github-token: "${{ secrets.GITHUB_TOKEN }}"
+          script: |
+            const pullRequest = context.payload.pull_request
+            const repository = context.repo
+            const title = 'Update pre-commit config'
+
+            await octokit.pulls.create({
+              owner: repository.owner,
+              repo: repository.repo,
+              title,
+              head: 'gitub-action/pre-commit',
+              base: 'master',
+            });
+
