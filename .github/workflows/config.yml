@@ -41,6 +41,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt -r requirements-dev.txt
 
+      - name: Install plugin
+        run: pip install pytest-github-actions-annotate-failures
+
       # - name: Install from source (required for the pre-commit tests)
       #   run: pip install .
 
