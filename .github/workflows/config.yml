@@ -136,7 +136,8 @@ jobs:
         github.event.action == 'reopened' ||
         github.event.action == 'synchronize'
       ) && (
-        github.actor == 'dependabot[bot]'
+        github.actor == 'dependabot[bot]' ||
+        github.actor == 'github-actions'
       )
 
     steps:
