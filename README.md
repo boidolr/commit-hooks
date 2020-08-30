@@ -1,4 +1,4 @@
-pre-commit-hooks [![Build Status](https://github.com/boidolr/pre-commit-hooks/workflows/CI%20(pip)/badge.svg?branch=master)](https://github.com/boidolr/pre-commit-hooks/actions) [![tag](https://img.shields.io/github/v/tag/boidolr/pre-commit-hooks)](https://github.com/boidolr/pre-commit-hooks/tags)
+pre-commit-hooks [![tag](https://img.shields.io/github/v/tag/boidolr/pre-commit-hooks)](https://github.com/boidolr/pre-commit-hooks/tags) [![Build Status](https://github.com/boidolr/pre-commit-hooks/workflows/CI/badge.svg?branch=master)](https://github.com/boidolr/pre-commit-hooks/actions) [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
 ================
 
 Some hooks for [pre-commit](https://github.com/pre-commit/pre-commit).
