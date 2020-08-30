@@ -17,9 +17,11 @@ repos:
   - repo: https://github.com/boidolr/pre-commit-hooks
     rev: v2.2
     hooks:
-      # - id: prepare-message
-      #   args: [--ignore-branch=master]
+#       - id: prepare-message
+#         args: [--ignore-branch=master]
       - id: restore-message
+      - id: format-message
+      - id: spellcheck-message
       - id: console-debugger
       - id: console-logging
       - id: console-window
@@ -27,7 +29,7 @@ repos:
       - id: properties-whitespace
       - id: ng-lint
         args: [--fix]
-      - id: optimize-image
+#      - id: optimize-image
 
   - repo: local
     hooks:
@@ -60,11 +62,16 @@ repos:
       - id: python-use-type-annotations
       - id: rst-backticks
 
+  - repo: https://github.com/psf/black
+    rev: 20.8b1
+    hooks:
+      - id: black
+
   - repo: https://github.com/asottile/pyupgrade
     rev: v2.7.2
     hooks:
-    - id: pyupgrade
-      args: [--py36-plus]
+      - id: pyupgrade
+        args: [--py36-plus]
 
   - repo: https://github.com/pre-commit/mirrors-mypy
     rev: v0.782

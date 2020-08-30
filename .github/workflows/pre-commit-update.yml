@@ -38,7 +38,7 @@ jobs:
         id: pre-commit-check
         continue-on-error: true
         run: |
-          SUCCESS=$(SKIP=optimize-image pre-commit run --all-files > /dev/null && echo 'true' || echo 'false')
+          SUCCESS=$(pre-commit run --all-files > /dev/null && echo 'true' || echo 'false')
           echo ::set-output name=success::${SUCCESS}
 
       - name: Setup git author
