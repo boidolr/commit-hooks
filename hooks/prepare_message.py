@@ -19,7 +19,7 @@ def _git_op_in_progress() -> bool:
     if not git_dir:
         raise FileNotFoundError("Failed to find git directory")
     path = Path(git_dir)
-    for file_name in ("rebase-merge", "rebase-apply", "MERGE_HEAD", "MERGE_MSG"):
+    for file_name in ("rebase-merge", "rebase-apply", "REBASE_HEAD", "MERGE_HEAD", "MERGE_MSG"):
         if path.joinpath(file_name).exists():
             return True
 
