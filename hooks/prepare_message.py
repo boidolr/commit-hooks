@@ -2,6 +2,7 @@
 import argparse
 import re
 import sys
+from operator import methodcaller
 from pathlib import Path
 from typing import Pattern, Optional, Match, Sequence
 
@@ -10,7 +11,7 @@ from .command_util import _execute_command
 
 def _get_git_path(file_name: str) -> Optional[str]:
     return _execute_command(
-        "git", "rev-parse", "--git-common-dir", "--git-path", file_name
+        "git", "rev-parse", "--git-path", file_name
     )
 
 
@@ -18,12 +19,10 @@ def _git_op_in_progress() -> bool:
     git_dir = _get_git_path(".")
     if not git_dir:
         raise FileNotFoundError("Failed to find git directory")
-    path = Path(git_dir)
-    for file_name in ("rebase-merge", "rebase-apply", "REBASE_HEAD", "MERGE_HEAD", "MERGE_MSG"):
-        if path.joinpath(file_name).exists():
-            return True
-
-    return False
+    files = ("rebase-merge", "rebase-apply", "REBASE_HEAD", "MERGE_HEAD", "MERGE_MSG")
+    paths = map(Path(git_dir).joinpath, files)
+    exists = map(methodcaller('exists'), paths)
+    return any(exists)
 
 
 def _get_branch_name() -> Optional[str]:
