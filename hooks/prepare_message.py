@@ -10,9 +10,7 @@ from .command_util import _execute_command
 
 
 def _get_git_path(file_name: str) -> Optional[str]:
-    return _execute_command(
-        "git", "rev-parse", "--git-path", file_name
-    )
+    return _execute_command("git", "rev-parse", "--git-path", file_name)
 
 
 def _git_op_in_progress() -> bool:
@@ -21,7 +19,7 @@ def _git_op_in_progress() -> bool:
         raise FileNotFoundError("Failed to find git directory")
     files = ("rebase-merge", "rebase-apply", "REBASE_HEAD", "MERGE_HEAD", "MERGE_MSG")
     paths = map(Path(git_dir).joinpath, files)
-    exists = map(methodcaller('exists'), paths)
+    exists = map(methodcaller("exists"), paths)
     return any(exists)
 
 
