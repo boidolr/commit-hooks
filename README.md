@@ -28,6 +28,7 @@ Add this to your `.pre-commit-config.yaml`
     - `--prefix-pattern` should match the prefix of the message to normalize it.
         Needs to match with `--pattern`. Defaults to `^\s*\w+-\d+\s*:`
 - `format-message`: Ensure commit message conforms to format of headline followed by two empty lines.
+    - `--capitalize` if the subject line should be capitalized. Other lines remain unchanged.
 - `spellcheck-message`: Test the message against a known dictionary.
     - `--language` can be used to switch to other supported languages then English (`en`).
     - `--dictionary` will specify a (non-default) dictionary to be used with autocorrect. The format is a JSON (string, integer) file.
