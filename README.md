@@ -44,6 +44,8 @@ Add this to your `.pre-commit-config.yaml`
 - `optimize-image`: Compress `png`, `jpeg` and `svg` images.
     - `--threshold` can be used to configure which size difference should be used to keep the image.
     - `--quality` can be used to configure quality setting for a JPG image.
+- `replace-tabs`: Replace tabs in files.
+    - `--tabsize`: spaces to replace a tab with.
 - `search-replace`: Replace patterns in files.
     - `--search`: regular expression to use for search.
     - `--replacement`: replacement for matches.

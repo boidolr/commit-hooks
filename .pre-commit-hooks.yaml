@@ -86,6 +86,14 @@
   exclude_types: [binary]
   stages: [commit]
 
+- id: replace-tabs
+  name: Replace tabs with spaces
+  description: Replace tabs with spaces in files.
+  language: python
+  entry: replace-tabs
+  exclude_types: [binary]
+  stages: [commit]
+
 - id: optimize-image
   name: Optimize images
   description: Check whether images can be reencoded to decrease file size.
