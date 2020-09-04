@@ -92,7 +92,7 @@
   language: python
   entry: optimize-image
   additional_dependencies: [pillow==7.2.0,scour==0.38]
-  files: \.(png|jpe?g)$
+  files: \.(png|svg|jpe?g)$
   stages: [commit]
 
 - id: properties-whitespace
