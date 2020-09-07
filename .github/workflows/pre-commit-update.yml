@@ -58,9 +58,9 @@ jobs:
           steps.git-check-changes.outputs.updated == 'true' &&
           steps.pre-commit-check.outputs.success == 'true'
         run: |
-          git checkout -b gitub-action/pre-commit
+          git checkout -b github-action/pre-commit
           git commit -am "Update pre-commit config"
-          git push --set-upstream origin HEAD:gitub-action/pre-commit
+          git push --set-upstream origin HEAD:github-action/pre-commit
 
       - name: Create pre-commit update pull request
         uses: "actions/github-script@v3"
@@ -78,6 +78,6 @@ jobs:
               owner: repository.owner,
               repo: repository.repo,
               title,
-              head: 'gitub-action/pre-commit',
+              head: 'github-action/pre-commit',
               base: 'master',
             });
