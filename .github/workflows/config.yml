@@ -81,6 +81,13 @@ jobs:
           git config --local user.email "$(git --no-pager log --format=format:'%ae' -n 1)"
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
 
+      - name: Set git branch
+        id: git-branch
+        run: |
+          REF="${{github.head_ref}}"
+          BRANCH="${REF:=GITHUB_REF}"
+          echo ::set-output name=branch::${BRANCH}
+
       - name: Install black
         run: pip install black
 
@@ -97,7 +104,8 @@ jobs:
         if: steps.git-check-black.outputs.modified == 'true'
         run: |
           git commit -am "Format Python code with psf/black"
-          git push origin HEAD:$GITHUB_REF
+          git pull --rebase origin ${{steps.git-branch.outputs.branch}}
+          git push origin HEAD:${{steps.git-branch.outputs.branch}}
 
       - name: Synchronize dependencies
         shell: python
@@ -124,7 +132,8 @@ jobs:
         if: steps.git-check-updates.outputs.modified == 'true'
         run: |
           git commit -am "Update dependencies in all config files"
-          git push origin HEAD:$GITHUB_REF
+          git pull --rebase origin ${{steps.git-branch.outputs.branch}}
+          git push origin HEAD:${{steps.git-branch.outputs.branch}}
 
   merge:
     runs-on: "ubuntu-latest"
@@ -139,6 +148,7 @@ jobs:
         github.event.action == 'synchronize'
       ) && (
         github.actor == 'dependabot[bot]' ||
+        github.actor == 'dependabot' ||
         github.actor == 'github-actions'
       )
 
