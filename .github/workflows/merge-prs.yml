@@ -1,0 +1,34 @@
+name: merge
+on:
+  workflow_run:
+    workflows: ["CI"]
+    branches-ignore: [master]
+    types: [completed]
+  workflow_dispatch:
+
+jobs:
+  merge:
+    runs-on: "ubuntu-latest"
+    if: >
+      github.event.workflow_run.conclusion == 'success'
+      && (
+        github.actor == 'dependabot[bot]' ||
+        github.actor == 'dependabot' ||
+        github.actor == 'github-actions'
+      )
+
+    steps:
+      - name: "Merge pull request"
+        uses: "actions/github-script@v3"
+        with:
+          github-token: "${{ secrets.GITHUB_TOKEN }}"
+          script: |
+            const pullRequest = context.payload.pull_request
+            const repository = context.repo
+
+            await github.pulls.merge({
+              merge_method: "merge",
+              owner: repository.owner,
+              pull_number: pullRequest.number,
+              repo: repository.repo,
+            })

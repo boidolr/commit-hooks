@@ -123,36 +123,3 @@ jobs:
           git commit -am "Update dependencies in all config files"
           git pull --rebase origin ${{steps.git-branch.outputs.branch}}
           git push origin HEAD:${{steps.git-branch.outputs.branch}}
-
-  merge:
-    runs-on: "ubuntu-latest"
-    needs:
-      - "build"
-      - "code-checks"
-    if: >
-      github.event_name == 'pull_request' &&
-      github.event.pull_request.draft == false && (
-        github.event.action == 'opened' ||
-        github.event.action == 'reopened' ||
-        github.event.action == 'synchronize'
-      ) && (
-        github.actor == 'dependabot[bot]' ||
-        github.actor == 'dependabot' ||
-        github.actor == 'github-actions'
-      )
-
-    steps:
-      - name: "Merge pull request"
-        uses: "actions/github-script@v3"
-        with:
-          github-token: "${{ secrets.GITHUB_TOKEN }}"
-          script: |
-            const pullRequest = context.payload.pull_request
-            const repository = context.repo
-
-            await github.pulls.merge({
-              merge_method: "merge",
-              owner: repository.owner,
-              pull_number: pullRequest.number,
-              repo: repository.repo,
-            })
