@@ -3,3 +3,4 @@ pre_commit_hooks.egg-info
 *.pyc
 .mypy_cache/
 .eggs
+.venv

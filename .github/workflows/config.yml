@@ -109,19 +109,7 @@ jobs:
           git push origin HEAD:${{steps.git-branch.outputs.branch}}
 
       - name: Synchronize dependencies
-        shell: python
-        run: |
-          import fileinput, re
-          source = 'requirements.txt'
-          targets = ('setup.cfg', '.pre-commit-hooks.yaml')
-          with open(source) as f:
-            versions = [ line.strip().split('==') for line in f.readlines() ]
-          versions = [ (re.compile(v[0] + r'==[^\s,\]]+'), v[0] + '==' + v[1]) for v in versions ]
-          with fileinput.input(files=targets, inplace=True) as f:
-              for line in f:
-                  for pattern, replacement in versions:
-                    line = pattern.sub(replacement, line)
-                  print(line, end='')
+        run: make sync
 
       - name: Check for modified files after updates
         id: git-check-updates
