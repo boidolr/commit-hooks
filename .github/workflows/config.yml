@@ -116,7 +116,7 @@ jobs:
           targets = ('setup.cfg', '.pre-commit-hooks.yaml')
           with open(source) as f:
             versions = [ line.strip().split('==') for line in f.readlines() ]
-          versions = [ (re.compile(v[0] + r'==[.0-9]+'), v[0] + '==' + v[1]) for v in versions ]
+          versions = [ (re.compile(v[0] + r'==[^\s,\]]+'), v[0] + '==' + v[1]) for v in versions ]
           with fileinput.input(files=targets, inplace=True) as f:
               for line in f:
                   for pattern, replacement in versions:
