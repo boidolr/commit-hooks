@@ -29,7 +29,7 @@ jobs:
           key: ${{ runner.os }}-pip-${{ steps.setup-python.outputs.python-version }}
 
       - name: Install pre-commit
-        run: pip install pre-commit
+        run: pip install -q pre-commit
 
       - name: Update pre-commit config
         run: pre-commit autoupdate
