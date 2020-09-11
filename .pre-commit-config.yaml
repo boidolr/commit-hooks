@@ -27,13 +27,18 @@ repos:
       - id: console-window
       - id: check-test
       - id: properties-whitespace
+      - id: replace-tabs
+#      - id: search-replace
+#        args:
+#        - '--search="\t"'
+#        - '--replacement="    "'
       - id: ng-lint
         args: [--fix]
 #      - id: optimize-image
 
   - repo: local
     hooks:
-      - id: check-commit-message
+      - id: check-fail-message
         stages: [commit-msg]
         name: Check commit message for fail
         language: pygrep
