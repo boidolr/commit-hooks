@@ -2,17 +2,19 @@
 import fileinput
 import re
 import sys
+import typing
 
 
-def main(source, targets):
-    with open(source) as f:
-        versions = [line.strip().split("==") for line in f.readlines()]
+def main(source: str, targets: typing.Iterable[str]) -> None:
+    with open(source) as fh:
+        dependency_versions = [line.strip().split("==") for line in fh.readlines()]
         versions = [
-            (re.compile(v[0] + r"==[^\s,\]]+"), v[0] + "==" + v[1]) for v in versions
+            (re.compile(v[0] + r"==[^\s,\]]+"), v[0] + "==" + v[1])
+            for v in dependency_versions
         ]
 
-    with fileinput.input(files=targets, inplace=True) as f:
-        for line in f:
+    with fileinput.input(files=targets, inplace=True) as files:
+        for line in files:
             for pattern, replacement in versions:
                 line = pattern.sub(replacement, line)
             print(line, end="")

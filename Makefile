@@ -22,18 +22,30 @@ venv: $(VENV)/$(MARKER)
 
 
 .PHONY: all
-all: format test version
+all: sync format check test version
 
 
 .PHONY: help
 help: Makefile
-	@sed -n 's/^##//p' $<
+	@sed -n 's/^##//p' $< | sort
 
 
 ## sync        : Update yaml versions from requirements file.
 .PHONY: sync
 sync: requirements.txt
 	python3 build/sync_versions.py $< setup.cfg .pre-commit-hooks.yaml
+
+
+## upgrade     : Update pre-commit configuration.
+.PHONY: upgrade
+upgrade: venv
+	$(VENV)/pre-commit autoupdate
+
+
+## check       : Execute pre-commit hooks.
+.PHONY: check
+check: venv
+	$(VENV)/pre-commit run --all-files
 
 
 ## format      : Format code.
@@ -65,11 +77,10 @@ release: test version
 	@sed  -E -e "s/rev: v${CURRENT}/rev: v${VERSION}/" -i '' README.md
 	@sed  -E -e "s/version = ${CURRENT}/version = ${VERSION}/" -i '' setup.cfg
 	@git add README.md setup.cfg
-	git commit -m "Prepare version ${VERSION}" && git tag "v${VERSION}"
+	git commit -m "Release version ${VERSION}" && git tag "v${VERSION}"
 
 
 ## clean       : Remove virtual environment.
 .PHONY: clean
 clean:
 	rm -r "$(VENVDIR)"
-
