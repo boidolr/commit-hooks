@@ -2,28 +2,36 @@
 import argparse
 import sys
 from pathlib import Path
+from PIL import Image
 from typing import Sequence, Optional
 
-from .optimize_jpg import optimize_jpg
-from .optimize_png import optimize_png
-from .optimize_svg import optimize_svg
+
+def _pillow(path: Path, quality: int) -> Path:
+    bkp = path.with_suffix(path.suffix + ".bkp")
+    im = Image.open(path)
+    im.save(bkp, format=im.format, optimize=True, progressive=True, quality=quality)
+    return bkp
 
 
-def _optimize_image(path: str, threshold: int, quality: int) -> None:
-    suffix = Path(path).suffix.lower()
-    if suffix == ".svg":
-        optimize_svg(path, threshold)
-    elif suffix == ".png":
-        optimize_png(path, threshold)
-    elif suffix == ".jpg" or suffix == ".jpeg":
-        optimize_jpg(path, threshold, quality)
+def optimize_jpg(path: str, threshold: int, quality: int) -> None:
+    fp = Path(path)
+
+    output = _pillow(fp, quality)
+
+    original_size = fp.stat().st_size
+    diff = original_size - output.stat().st_size
+    if diff > threshold:
+        output.replace(fp)
+        print(
+            f"Optimized {path} by {diff} of {original_size} bytes ({diff/original_size:.2%})"
+        )
     else:
-        raise Exception("Unknown image suffix", suffix)
+        output.unlink()
 
 
 def main(argv: Optional[Sequence[str]] = None) -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("filenames", nargs="*", help="File names to optimize.")
+    parser.add_argument("filenames", nargs="*", help="Files to optimize.")
     parser.add_argument(
         "-t",
         "--threshold",
@@ -42,7 +50,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
 
     for file in args.filenames:
         try:
-            _optimize_image(file, args.threshold, args.quality)
+            optimize_jpg(file, args.threshold, args.quality)
         except Exception as exc:
             print(
                 f"Failed optimization for {file} ({exc})",

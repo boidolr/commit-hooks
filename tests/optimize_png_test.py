@@ -1,18 +1,11 @@
-import pytest
 import shutil
 
 from pathlib import Path
-from hooks.optimize_image import main
+from hooks.optimize_png import main
 
 
-@pytest.mark.parametrize(
-    ("image",),
-    (
-        ("test.png",),
-        ("test.svg",),
-    ),
-)
-def test_compress_png(image, tmpdir):
+def test_compress_png(tmpdir):
+    image = "test.png"
     path = Path(tmpdir) / image
     test_file = Path(__file__).parent / image
     shutil.copy(test_file, path)

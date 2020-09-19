@@ -42,9 +42,16 @@ Add this to your `.pre-commit-config.yaml`
 - `ng-lint`: Execute `ng lint` for changed files only.
     - `--fix` will call `ng lint` with `--fix`.
     - `--ng-path` can be used to give the path to the `ng` executable. Default is `node_modules/.bin/ng`.
-- `optimize-image`: Compress `png`, `jpeg` and `svg` images.
+- `optimize-image`: Compress `png`, `jpeg` and `svg` images. Specific hooks are available for fine grained configuration.
     - `--threshold` can be used to configure which size difference should be used to keep the image.
     - `--quality` can be used to configure quality setting for a JPG image.
+- `optimize-jpg`: Compress `jpeg` images.
+    - `--threshold` can be used to configure which size difference should be used to keep the image.
+    - `--quality` can be used to configure quality setting for a JPG image.
+- `optimize-png`: Compress `png` images.
+    - `--threshold` can be used to configure which size difference should be used to keep the image.
+- `optimize-svg`: Compress `svg` images.
+    - `--threshold` can be used to configure which size difference should be used to keep the image.
 - `replace-tabs`: Replace tabs in files.
     - `--tabsize`: spaces to replace a tab with.
 - `search-replace`: Replace patterns in files.

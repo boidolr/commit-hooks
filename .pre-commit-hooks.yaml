@@ -103,6 +103,33 @@
   files: \.(png|svg|jpe?g)$
   stages: [commit]
 
+- id: optimize-jpg
+  name: Optimize jpgs
+  description: Check whether jpgs can be reencoded to decrease file size.
+  language: python
+  entry: optimize-jpg
+  additional_dependencies: [pillow==7.2.0]
+  files: \.jpe?g$
+  stages: [commit]
+
+- id: optimize-png
+  name: Optimize pngs
+  description: Check whether pngs can be reencoded to decrease file size.
+  language: python
+  entry: optimize-png
+  additional_dependencies: [pillow==7.2.0]
+  files: \.png$
+  stages: [commit]
+
+- id: optimize-svg
+  name: Optimize svgs
+  description: Check whether svgs can be stripped to decrease file size.
+  language: python
+  entry: optimize-svg
+  additional_dependencies: [scour==0.38.1.post1]
+  files: \.svg$
+  stages: [commit]
+
 - id: properties-whitespace
   name: Remove whitespace in property files
   description: Remove whitespace around '=' in property files.
