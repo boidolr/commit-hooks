@@ -7,6 +7,7 @@ from typing import Sequence, Optional
 from .optimize_jpg import optimize_jpg
 from .optimize_png import optimize_png
 from .optimize_svg import optimize_svg
+from .optimize_webp import optimize_webp
 
 
 def _optimize_image(path: str, threshold: int, quality: int) -> None:
@@ -15,6 +16,8 @@ def _optimize_image(path: str, threshold: int, quality: int) -> None:
         optimize_svg(path, threshold)
     elif suffix == ".png":
         optimize_png(path, threshold)
+    elif suffix == ".webp":
+        optimize_webp(path, threshold, True, 80)
     elif suffix == ".jpg" or suffix == ".jpeg":
         optimize_jpg(path, threshold, quality)
     else:
