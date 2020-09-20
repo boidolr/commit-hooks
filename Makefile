@@ -61,12 +61,12 @@ test: venv
 
 
 ## version     : Show which version is detected and what the next one would be.
+CURRENT:=$(subst v,,$(shell git describe --abbrev=0 --tags))
+PARTS:=$(subst ., ,$(CURRENT))
+MAJOR:=$(firstword $(PARTS))
+MINOR:=$(shell echo $$(($(lastword $(PARTS))+1)))
+VERSION:=$(MAJOR).$(MINOR)
 .PHONY: version
-version: CURRENT:=$(subst v,,$(shell git describe --abbrev=0 --tags))
-version: PARTS:=$(subst ., ,$(CURRENT))
-version: MAJOR:=$(firstword $(PARTS))
-version: MINOR:=$(shell echo $$(($(lastword $(PARTS))+1)))
-version: VERSION:=$(MAJOR).$(MINOR)
 version:
 	@echo "Version update: $(CURRENT) -> $(VERSION)"
 
