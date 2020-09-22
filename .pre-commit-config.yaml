@@ -36,6 +36,10 @@ repos:
       - id: ng-lint
         args: [--fix]
 #      - id: optimize-image
+#      - id: optimize-jpg
+#      - id: optimize-png
+#      - id: optimize-svg
+#      - id: optimize-webp
 
   - repo: local
     hooks:
