@@ -17,7 +17,7 @@ def _git_op_in_progress() -> bool:
     git_dir = _get_git_path(".")
     if not git_dir:
         raise FileNotFoundError("Failed to find git directory")
-    files = ("rebase-merge", "rebase-apply", "REBASE_HEAD", "MERGE_HEAD", "MERGE_MSG")
+    files = ("rebase-merge", "rebase-apply", "MERGE_HEAD", "MERGE_MSG")
     paths = map(Path(git_dir).joinpath, files)
     exists = map(methodcaller("exists"), paths)
     return any(exists)
