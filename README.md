@@ -3,7 +3,7 @@ pre-commit-hooks [![tag](https://img.shields.io/github/v/tag/boidolr/pre-commit-
 
 Some hooks for [pre-commit](https://github.com/pre-commit/pre-commit).
 
-See also: https://github.com/pre-commit/pre-commit-hooks
+For some useful generic hooks see: [pre-commit/pre-commit-hooks](https://github.com/pre-commit/pre-commit-hooks) and [pre-commit/pygrep-hooks](https://github.com/pre-commit/pygrep-hooks)
 
 
 ### Using pre-commit-hooks with pre-commit
