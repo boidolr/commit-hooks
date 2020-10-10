@@ -41,14 +41,6 @@ repos:
 #      - id: optimize-svg
 #      - id: optimize-webp
 
-  - repo: local
-    hooks:
-      - id: check-fail-message
-        stages: [commit-msg]
-        name: Check commit message for fail
-        language: pygrep
-        entry: fail
-
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v3.2.0
     hooks:
@@ -97,3 +89,18 @@ repos:
     rev: 3.8.4
     hooks:
       - id: flake8
+
+  - repo: local
+    hooks:
+      - id: sync-dependencies
+        name: syncronize dependencies
+        entry: make sync
+        language: system
+        files: ^(requirements\.txt|setup\.cfg|build/sync_versions\.py)$
+        pass_filenames: false
+      - id: run-tests
+        name: run tests
+        entry: make test
+        language: system
+        always_run: true
+        pass_filenames: false
