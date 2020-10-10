@@ -34,7 +34,6 @@
   entry: '\bdebugger\b'
   types: [text]
   files: \.(ts|js)$
-  stages: [commit]
 
 - id: console-logging
   name: Check console logging
@@ -43,7 +42,6 @@
   entry: '\bconsole\.(?:log|info|trace|dir|warn|error)\b'
   types: [text]
   files: \.(ts|js)$
-  stages: [commit]
 
 - id: console-window
   name: Check window access
@@ -52,7 +50,6 @@
   entry: '\bwindow\b'
   types: [text]
   files: \.(ts|js)$
-  stages: [commit]
 
 - id: check-test
   name: Check focus & ignore from tests
@@ -61,7 +58,6 @@
   entry: '\b[fx](?:describe|it)'
   types: [text]
   files: \.spec\.(ts|js)$
-  stages: [commit]
 
 - id: ng-lint
   name: Execute ng lint
@@ -69,7 +65,6 @@
   language: python
   entry: check-ng-lint
   types: [ts]
-  stages: [commit]
 
 - id: search-replace
   name: Search and replace patterns
@@ -77,7 +72,6 @@
   language: python
   entry: search-replace
   exclude_types: [binary]
-  stages: [commit]
 
 - id: replace-tabs
   name: Replace tabs with spaces
@@ -85,7 +79,6 @@
   language: python
   entry: replace-tabs
   exclude_types: [binary]
-  stages: [commit]
 
 - id: optimize-image
   name: Optimize images
@@ -94,7 +87,6 @@
   entry: optimize-image
   additional_dependencies: [pillow==7.2.0,scour==0.38.1.post1]
   files: \.(png|svg|webp|jpe?g)$
-  stages: [commit]
 
 - id: optimize-jpg
   name: Optimize jpgs
@@ -102,8 +94,7 @@
   language: python
   entry: optimize-jpg
   additional_dependencies: [pillow==7.2.0]
-  files: \.jpe?g$
-  stages: [commit]
+  types: [jpeg]
 
 - id: optimize-png
   name: Optimize pngs
@@ -111,8 +102,7 @@
   language: python
   entry: optimize-png
   additional_dependencies: [pillow==7.2.0]
-  files: \.png$
-  stages: [commit]
+  types: [png]
 
 - id: optimize-svg
   name: Optimize svgs
@@ -120,8 +110,7 @@
   language: python
   entry: optimize-svg
   additional_dependencies: [scour==0.38.1.post1]
-  files: \.svg$
-  stages: [commit]
+  types: [svg]
 
 - id: optimize-webp
   name: Optimize webps
@@ -130,7 +119,6 @@
   entry: optimize-webp
   additional_dependencies: [pillow==7.2.0]
   files: \.webp$
-  stages: [commit]
 
 - id: properties-whitespace
   name: Remove whitespace in property files
@@ -141,4 +129,3 @@
     - '--search="^([^=\s]+)\s*=\s*"'
     - '--replacement="\1="'
   types: [java-properties]
-  stages: [commit]
