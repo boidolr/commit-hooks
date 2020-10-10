@@ -20,13 +20,6 @@
   additional_dependencies: [autocorrect==2.1.0]
   stages: [commit-msg]
 
-- id: check-message
-  name: Check message formatting (deprecated)
-  description: Ensure commit message has correct formatting between header and description
-  language: python
-  entry: format-message
-  stages: [commit-msg]
-
 - id: format-message
   name: Check message formatting
   description: Ensure commit message has correct formatting between header and description
