@@ -102,3 +102,48 @@ def test_check_test_positive(s):
 )
 def test_check_test_negative(s):
     assert not HOOKS["check-test"].search(s)
+
+
+@pytest.mark.parametrize(
+    "s",
+    (
+        "tap(() => {debugger}),",
+        "foo(); debugger;",
+    ),
+)
+def test_ts_no_debugger_positive(s):
+    assert HOOKS["ts-no-debugger"].search(s)
+
+
+@pytest.mark.parametrize(
+    "s",
+    ('debug("function is ok")',),
+)
+def test_ts_no_debugger_negative(s):
+    assert not HOOKS["ts-no-debugger"].search(s)
+
+
+@pytest.mark.parametrize(
+    "s",
+    (
+        'fdescribe("focus block", () => ({}))',
+        'xdescribe("ignore block", () => ({}))',
+        'xdescribe ("ignore block with space", () => ({}))',
+        'fit("focus case", () => ({}))',
+        'xit("ignore case", () => ({}))',
+        'xit ("ignore case with space", () => ({}))',
+    ),
+)
+def test_ts_no_focus_ignore_positive(s):
+    assert HOOKS["ts-no-focus-ignore"].search(s)
+
+
+@pytest.mark.parametrize(
+    "s",
+    (
+        'describe("block", () => {',
+        'it("case", () => {',
+    ),
+)
+def test_ts_no_focus_ignore_negative(s):
+    assert not HOOKS["ts-no-focus-ignore"].search(s)

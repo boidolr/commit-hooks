@@ -28,6 +28,38 @@
   stages: [commit-msg]
 
 - id: console-debugger
+  name: Check console debugger statements (deprecated)
+  description: Use ts-no-debugger instead
+  language: pygrep
+  entry: '\bdebugger\b'
+  types: [text]
+  files: \.(ts|js)$
+
+- id: console-logging
+  name: Check console logging (deprecated)
+  description: Use ts-no-console instead
+  language: pygrep
+  entry: '\bconsole\.(?:log|info|trace|dir|warn|error)\b'
+  types: [text]
+  files: \.(ts|js)$
+
+- id: console-window
+  name: Check window access (deprecated)
+  description: Use ts-no-window instead
+  language: pygrep
+  entry: '\bwindow\b'
+  types: [text]
+  files: \.(ts|js)$
+
+- id: check-test
+  name: Check focus & ignore from tests (deprecated)
+  description: Use ts-no-focus-ignore instead
+  language: pygrep
+  entry: '\b[fx](?:describe|it)'
+  types: [text]
+  files: \.spec\.(ts|js)$
+
+- id: ts-no-debugger
   name: Check console debugger statements
   description: Check for lines in JavaScript and TypeScript containing debugger statements.
   language: pygrep
@@ -35,33 +67,37 @@
   types: [text]
   files: \.(ts|js)$
 
-- id: console-logging
+- id: ts-no-console
   name: Check console logging
-  description: Check for lines in JavaScript and TypeScript containing console logging.
+  description: Check for lines in TypeScript containing console logging.
   language: pygrep
-  entry: '\bconsole\.(?:log|info|trace|dir|warn|error)\b'
-  types: [text]
-  files: \.(ts|js)$
+  entry: '\bconsole\.\('
+  types: [ts]
 
-- id: console-window
+- id: ts-no-window
   name: Check window access
   description: Check for lines in JavaScript and TypeScript containing window access.
   language: pygrep
   entry: '\bwindow\b'
-  types: [text]
-  files: \.(ts|js)$
+  types: [ts]
 
-- id: check-test
-  name: Check focus & ignore from tests
-  description: Check for focus and ignore from tests in JavaScript and TypeScript.
+- id: ts-no-focus-ignore
+  name: Check use of focus and ignore of tests
+  description: 'Forbid use of `fit()`, `xit()`, `fdescribe()` and `xdescribe()` test functions'
   language: pygrep
-  entry: '\b[fx](?:describe|it)'
-  types: [text]
-  files: \.spec\.(ts|js)$
+  entry: '\b(?:fit|xit|fdescribe|xdescribe)\s*\('
+  types: [ts]
 
-- id: ng-lint
+- id: ts-ng-lint
   name: Execute ng lint
   description: Execute ng lint from the node_modules directory.
+  language: python
+  entry: check-ng-lint
+  types: [ts]
+
+- id: ng-lint
+  name: Execute ng lint (deprecated)
+  description: Use ts-ng-lint instead
   language: python
   entry: check-ng-lint
   types: [ts]
@@ -81,8 +117,8 @@
   exclude_types: [binary]
 
 - id: optimize-image
-  name: Optimize images
-  description: Check whether images can be reencoded to decrease file size.
+  name: Optimize images (deprecated)
+  description: Use type specific hooks instead
   language: python
   entry: optimize-image
   additional_dependencies: [pillow==8.0.0,scour==0.38.1.post1]
@@ -118,7 +154,7 @@
   language: python
   entry: optimize-webp
   additional_dependencies: [pillow==8.0.0]
-  files: \.webp$
+  types: [webp]
 
 - id: properties-whitespace
   name: Remove whitespace in property files
