@@ -85,7 +85,7 @@
   description: Check whether images can be reencoded to decrease file size.
   language: python
   entry: optimize-image
-  additional_dependencies: [pillow==7.2.0,scour==0.38.1.post1]
+  additional_dependencies: [pillow==8.0.0,scour==0.38.1.post1]
   files: \.(png|svg|webp|jpe?g)$
 
 - id: optimize-jpg
@@ -93,7 +93,7 @@
   description: Check whether jpgs can be reencoded to decrease file size.
   language: python
   entry: optimize-jpg
-  additional_dependencies: [pillow==7.2.0]
+  additional_dependencies: [pillow==8.0.0]
   types: [jpeg]
 
 - id: optimize-png
@@ -101,7 +101,7 @@
   description: Check whether pngs can be reencoded to decrease file size.
   language: python
   entry: optimize-png
-  additional_dependencies: [pillow==7.2.0]
+  additional_dependencies: [pillow==8.0.0]
   types: [png]
 
 - id: optimize-svg
@@ -117,7 +117,7 @@
   description: Check whether webps can be reencoded to decrease file size.
   language: python
   entry: optimize-webp
-  additional_dependencies: [pillow==7.2.0]
+  additional_dependencies: [pillow==8.0.0]
   files: \.webp$
 
 - id: properties-whitespace
