@@ -15,17 +15,17 @@ fail_fast: false
 exclude: ^$
 repos:
   - repo: https://github.com/boidolr/pre-commit-hooks
-    rev: v2.8
+    rev: v2.9
     hooks:
 #       - id: prepare-message
 #         args: [--ignore-branch=master]
       - id: restore-message
       - id: format-message
       - id: spellcheck-message
-      - id: console-debugger
-      - id: console-logging
-      - id: console-window
-      - id: check-test
+      - id: ts-no-debugger
+      - id: ts-no-console
+      - id: ts-no-window
+      - id: ts-no-focus-ignore
       - id: properties-whitespace
       - id: replace-tabs
         exclude: Makefile
@@ -33,9 +33,8 @@ repos:
 #        args:
 #        - '--search="\t"'
 #        - '--replacement="    "'
-      - id: ng-lint
+      - id: ts-ng-lint
         args: [--fix]
-#      - id: optimize-image
 #      - id: optimize-jpg
 #      - id: optimize-png
 #      - id: optimize-svg
