@@ -7,6 +7,8 @@ on:
   pull_request:
     branches:
       - master
+  schedule:
+    - cron: "5 7 13 * *"
   workflow_dispatch:
 
 jobs:
@@ -70,7 +72,7 @@ jobs:
         run: |
           echo "::set-output name=dir::$(pip cache dir)"
 
-      - name: pip cache
+      - name: Configure pip cache
         uses: actions/cache@v2
         with:
           path: ${{ steps.pip-cache.outputs.dir }}
@@ -133,9 +135,9 @@ jobs:
       (
         github.event_name == 'pull_request'
       ) && (
-          github.actor == 'dependabot[bot]' ||
-          github.actor == 'dependabot' ||
-          github.actor == 'github-actions'
+        github.actor == 'dependabot[bot]' ||
+        github.actor == 'dependabot' ||
+        github.actor == 'github-actions'
       )
 
     steps:
