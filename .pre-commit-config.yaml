@@ -17,8 +17,8 @@ repos:
   - repo: https://github.com/boidolr/pre-commit-hooks
     rev: v2.9
     hooks:
-#       - id: prepare-message
-#         args: [--ignore-branch=master]
+      # - id: prepare-message
+      #   args: [--ignore-branch=master]
       - id: restore-message
       - id: format-message
       - id: spellcheck-message
@@ -29,16 +29,16 @@ repos:
       - id: properties-whitespace
       - id: replace-tabs
         exclude: Makefile
-#      - id: search-replace
-#        args:
-#        - '--search="\t"'
-#        - '--replacement="    "'
+      # - id: search-replace
+      #   args:
+      #   - '--search="\t"'
+      #   - '--replacement="    "'
       - id: ts-ng-lint
         args: [--fix]
-#      - id: optimize-jpg
-#      - id: optimize-png
-#      - id: optimize-svg
-#      - id: optimize-webp
+      # - id: optimize-jpg
+      # - id: optimize-png
+      # - id: optimize-svg
+      # - id: optimize-webp
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v3.2.0
@@ -67,6 +67,12 @@ repos:
     rev: 20.8b1
     hooks:
       - id: black
+
+  - repo: https://github.com/prettier/prettier
+    rev: 2.1.2
+    hooks:
+      - id: prettier
+        types: [yaml]
 
   - repo: https://github.com/asottile/pyupgrade
     rev: v2.7.2

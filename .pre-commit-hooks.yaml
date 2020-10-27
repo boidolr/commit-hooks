@@ -123,7 +123,7 @@
   description: Use type specific hooks instead
   language: python
   entry: optimize-image
-  additional_dependencies: [pillow==8.0.1,scour==0.38.1.post1]
+  additional_dependencies: [pillow==8.0.1, scour==0.38.1.post1]
   files: \.(png|svg|webp|jpe?g)$
 
 - id: optimize-jpg
