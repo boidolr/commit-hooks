@@ -14,28 +14,6 @@ HOOKS = {
 @pytest.mark.parametrize(
     "s",
     (
-        "tap(() => {debugger;}),",
-        "foo(); debugger;",
-    ),
-)
-def test_console_debugger_positive(s):
-    assert HOOKS["console-debugger"].search(s)
-
-
-@pytest.mark.parametrize(
-    "s",
-    (
-        "debug()",
-        '"debugging"',
-    ),
-)
-def test_console_debugger_negative(s):
-    assert not HOOKS["console-debugger"].search(s)
-
-
-@pytest.mark.parametrize(
-    "s",
-    (
         "tap((args) => console.log(args)),",
         "console.dir(obj);",
         "console.trace(data)",
@@ -44,20 +22,19 @@ def test_console_debugger_negative(s):
         "console.error(data)",
     ),
 )
-def test_console_logging_positive(s):
-    assert HOOKS["console-logging"].search(s)
+def test_ts_no_console_positive(s):
+    assert HOOKS["ts-no-console"].search(s)
 
 
 @pytest.mark.parametrize(
     "s",
     (
-        'console.time("obj");',
-        'console.timeEnd("obj")',
-        "console.group(data)",
+        "obj.console()",
+        "obj.console.log()",
     ),
 )
-def test_console_logging_negative(s):
-    assert not HOOKS["console-logging"].search(s)
+def test_ts_no_console_negative(s):
+    assert not HOOKS["ts-no-console"].search(s)
 
 
 @pytest.mark.parametrize(
@@ -68,40 +45,19 @@ def test_console_logging_negative(s):
         "window.onload = function() {",
     ),
 )
-def test_console_window_positive(s):
-    assert HOOKS["console-window"].search(s)
-
-
-@pytest.mark.parametrize(
-    "s",
-    ('"win" + "dow"',),
-)
-def test_console_window_negative(s):
-    assert not HOOKS["console-window"].search(s)
+def test_ts_no_window_positive(s):
+    assert HOOKS["ts-no-window"].search(s)
 
 
 @pytest.mark.parametrize(
     "s",
     (
-        'fdescribe("focus", () => {',
-        'xdescribe("ignore", () => {',
-        'fit("focus", () => {',
-        'xit("ignore", () => {',
+        '"win" + "dow"',
+        "this.window",
     ),
 )
-def test_check_test_positive(s):
-    assert HOOKS["check-test"].search(s)
-
-
-@pytest.mark.parametrize(
-    "s",
-    (
-        'describe("block", () => {',
-        'it("case", () => {',
-    ),
-)
-def test_check_test_negative(s):
-    assert not HOOKS["check-test"].search(s)
+def test_ts_no_window_negative(s):
+    assert not HOOKS["ts-no-window"].search(s)
 
 
 @pytest.mark.parametrize(
@@ -117,7 +73,10 @@ def test_ts_no_debugger_positive(s):
 
 @pytest.mark.parametrize(
     "s",
-    ('debug("function is ok")',),
+    (
+        'debug("function is ok")',
+        'obj.debugger("method is ok")',
+    ),
 )
 def test_ts_no_debugger_negative(s):
     assert not HOOKS["ts-no-debugger"].search(s)
@@ -147,3 +106,16 @@ def test_ts_no_focus_ignore_positive(s):
 )
 def test_ts_no_focus_ignore_negative(s):
     assert not HOOKS["ts-no-focus-ignore"].search(s)
+
+
+@pytest.mark.parametrize(
+    "s",
+    (
+        'fdescribe("focus", () => {',
+        'xdescribe("ignore", () => {',
+        'fit("focus", () => {',
+        'xit("ignore", () => {',
+    ),
+)
+def test_check_test_positive(s):
+    assert HOOKS["check-test"].search(s)
