@@ -47,7 +47,7 @@ Add this to your `.pre-commit-config.yaml`
     - `--threshold` can be used to configure which size difference should be used to keep the image.
 - **`optimize-webp`**: Compress `webp` images.
     - `--threshold` can be used to configure which size difference should be used to keep the image.
-    - `--lossless` switch to lossless compession.
+    - `--lossless` switch to lossless compression.
     - `--quality` can be used to configure quality setting for lossy compression or effort to spend on lossless compression.
 - **`replace-tabs`**: Replace tabs in files.
     - `--tabsize` spaces to replace a tab with.
