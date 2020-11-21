@@ -106,16 +106,3 @@ def test_ts_no_focus_ignore_positive(s):
 )
 def test_ts_no_focus_ignore_negative(s):
     assert not HOOKS["ts-no-focus-ignore"].search(s)
-
-
-@pytest.mark.parametrize(
-    "s",
-    (
-        'fdescribe("focus", () => {',
-        'xdescribe("ignore", () => {',
-        'fit("focus", () => {',
-        'xit("ignore", () => {',
-    ),
-)
-def test_check_test_positive(s):
-    assert HOOKS["check-test"].search(s)

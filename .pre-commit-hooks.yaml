@@ -27,38 +27,6 @@
   entry: format-message
   stages: [commit-msg]
 
-- id: console-debugger
-  name: Check console debugger statements (deprecated)
-  description: Use ts-no-debugger instead
-  language: pygrep
-  entry: '\b(?<!\.)debugger\b'
-  types: [text]
-  files: \.(ts|js)$
-
-- id: console-logging
-  name: Check console logging (deprecated)
-  description: Use ts-no-console instead
-  language: pygrep
-  entry: '\b(?<!\.)console\.(?:log|info|trace|dir|warn|error)\b'
-  types: [text]
-  files: \.(ts|js)$
-
-- id: console-window
-  name: Check window access (deprecated)
-  description: Use ts-no-window instead
-  language: pygrep
-  entry: '\b(?<!\.)window\b'
-  types: [text]
-  files: \.(ts|js)$
-
-- id: check-test
-  name: Check focus & ignore from tests (deprecated)
-  description: Use ts-no-focus-ignore instead
-  language: pygrep
-  entry: '\b[fx](?:describe|it)'
-  types: [text]
-  files: \.spec\.(ts|js)$
-
 - id: ts-no-debugger
   name: Check console debugger statements
   description: Check for lines in JavaScript and TypeScript containing debugger statements.
@@ -117,14 +85,6 @@
   language: python
   entry: replace-tabs
   exclude_types: [binary]
-
-- id: optimize-image
-  name: Optimize images (deprecated)
-  description: Use type specific hooks instead
-  language: python
-  entry: optimize-image
-  additional_dependencies: [pillow==8.0.1, scour==0.38.1.post1]
-  files: \.(png|svg|webp|jpe?g)$
 
 - id: optimize-jpg
   name: Optimize jpgs
