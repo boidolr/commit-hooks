@@ -16,6 +16,7 @@ Add this to your `.pre-commit-config.yaml`
         -   id: ts-no-debugger
         # -   id: ...
 
+For a more complete example see [.pre-commit-config.yaml](.pre-commit-config.yaml).
 
 ### Hooks available
 
