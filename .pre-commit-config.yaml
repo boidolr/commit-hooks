@@ -68,8 +68,8 @@ repos:
     hooks:
       - id: black
 
-  - repo: https://github.com/prettier/prettier
-    rev: 2.1.2
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v2.2.0
     hooks:
       - id: prettier
         types: [yaml]
@@ -103,9 +103,9 @@ repos:
         language: system
         files: ^(requirements\.txt|setup\.cfg|build/sync_versions\.py)$
         pass_filenames: false
-      - id: run-tests
-        name: run tests
-        entry: make test
-        language: system
-        always_run: true
-        pass_filenames: false
+      # - id: run-tests
+      #   name: run tests
+      #   entry: make test
+      #   language: system
+      #   always_run: true
+      #   pass_filenames: false
