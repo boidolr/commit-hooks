@@ -107,7 +107,7 @@
   description: Check whether svgs can be stripped to decrease file size.
   language: python
   entry: optimize-svg
-  additional_dependencies: [scour==0.38.1.post1]
+  additional_dependencies: [scour==0.38.2]
   types: [svg]
 
 - id: optimize-webp
