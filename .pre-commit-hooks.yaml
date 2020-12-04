@@ -32,8 +32,7 @@
   description: Check for lines in JavaScript and TypeScript containing debugger statements.
   language: pygrep
   entry: '\b(?<!\.)debugger\b'
-  types: [text]
-  files: \.(ts|js)$
+  types: [ts]
 
 - id: ts-no-console
   name: Check console use
