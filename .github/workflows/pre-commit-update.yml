@@ -36,10 +36,7 @@ jobs:
 
       - name: Ensure pre-commit config remains functional
         id: pre-commit-check
-        continue-on-error: true
-        run: |
-          SUCCESS=$(pre-commit run --all-files > /dev/null && echo 'true' || echo 'false')
-          echo ::set-output name=success::${SUCCESS}
+        run: pre-commit run --all-files
 
       - name: Setup git author
         run: |
@@ -55,8 +52,7 @@ jobs:
 
       - name: Push pre-commit changes
         if: >
-          steps.git-check-changes.outputs.updated == 'true' &&
-          steps.pre-commit-check.outputs.success == 'true'
+          steps.git-check-changes.outputs.updated == 'true'
         run: |
           git checkout -b github-action/pre-commit
           git commit -am "Update pre-commit config"
