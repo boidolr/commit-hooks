@@ -98,7 +98,7 @@ repos:
   - repo: local
     hooks:
       - id: sync-dependencies
-        name: Syncronize dependencies
+        name: Synchronize dependencies
         entry: make sync
         language: system
         files: ^(requirements\.txt|setup\.cfg|build/sync_versions\.py)$

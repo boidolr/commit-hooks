@@ -61,8 +61,7 @@ jobs:
       - name: Create pre-commit update pull request
         uses: "actions/github-script@v3"
         if: >
-          steps.git-check-changes.outputs.updated == 'true' &&
-          steps.pre-commit-check.outputs.success == 'true'
+          steps.git-check-changes.outputs.updated == 'true'
         with:
           github-token: "${{ secrets.GITHUB_TOKEN }}"
           script: |
