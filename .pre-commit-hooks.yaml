@@ -85,6 +85,14 @@
   entry: replace-tabs
   exclude_types: [binary]
 
+- id: optimize-avif
+  name: Optimize avifs
+  description: Check whether avifs can be reencoded to decrease file size.
+  language: python
+  entry: optimize-avif
+  additional_dependencies: [pillow==8.1.0, pillow-avif-plugin==1.0.1]
+  types: [avif]
+
 - id: optimize-jpg
   name: Optimize jpgs
   description: Check whether jpgs can be reencoded to decrease file size.

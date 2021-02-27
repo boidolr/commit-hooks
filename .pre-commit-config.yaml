@@ -35,6 +35,7 @@ repos:
       #   - '--replacement="    "'
       - id: ts-ng-lint
         args: [--fix]
+      # - id: optimize-avif
       # - id: optimize-jpg
       # - id: optimize-png
       # - id: optimize-svg
