@@ -39,6 +39,11 @@ For a more complete example see [.pre-commit-config.yaml](.pre-commit-config.yam
 
 #### Code related
 
+- **`optimize-avif`**: Compress `avif` images.
+    - `--threshold` can be used to configure which size difference should be used to keep the image.
+    - `--qmin` to configure minimum quality setting (best: 0, worst: 63).
+    - `--qmax` to configure maximum quality setting (best: 0, worst: 63).
+    - `--effort` to set the quality/speed tradeoff (slowest: 0, fastest: 10).
 - **`optimize-jpg`**: Compress `jpeg` images.
     - `--threshold` can be used to configure which size difference should be used to keep the image.
     - `--quality` can be used to configure quality setting for a JPG image.
