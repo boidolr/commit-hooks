@@ -15,7 +15,7 @@ fail_fast: false
 exclude: ^$
 repos:
   - repo: https://github.com/boidolr/pre-commit-hooks
-    rev: v3.2
+    rev: v3.3
     hooks:
       # - id: prepare-message
       #   args: [--ignore-branch=master]
@@ -59,7 +59,7 @@ repos:
       - id: trailing-whitespace
 
   - repo: https://github.com/pre-commit/pygrep-hooks
-    rev: v1.7.1
+    rev: v1.8.0
     hooks:
       - id: python-use-type-annotations
       - id: rst-backticks
