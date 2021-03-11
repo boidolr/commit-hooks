@@ -13,14 +13,14 @@ Add this to your `.pre-commit-config.yaml`
     -   repo: https://github.com/boidolr/pre-commit-hooks
         rev: v3.4  # Use the ref you want to point at
         hooks:
-        -   id: ts-no-debugger
+        -   id: prepare-message
         # -   id: ...
 
 For a more complete example see [.pre-commit-config.yaml](.pre-commit-config.yaml).
 
-### Hooks available
+### Available hooks
 
-#### Commit message related
+#### Change commit messages
 
 - **`prepare-message`**: Change commit messages to include a prefix.
     - `--ignore-branch` will lead to the branch not being checked.
@@ -37,7 +37,7 @@ For a more complete example see [.pre-commit-config.yaml](.pre-commit-config.yam
     In case the previous commit was aborted this hook restores the content of `COMMIT_EDITMSG` the commit message into the editor.
     Similar to `git commit --reuse-message=.git/COMMIT_EDITMSG`.
 
-#### Code related
+#### Image optimization
 
 - **`optimize-avif`**: Compress `avif` images.
     - `--threshold` can be used to configure which size difference should be used to keep the image.
@@ -55,19 +55,29 @@ For a more complete example see [.pre-commit-config.yaml](.pre-commit-config.yam
     - `--threshold` can be used to configure which size difference should be used to keep the image.
     - `--lossless` switch to lossless compression.
     - `--quality` can be used to configure quality setting for lossy compression or effort to spend on lossless compression.
+
+#### Change text files
+
 - **`replace-tabs`**: Replace tabs in files.
     - `--tabsize` spaces to replace a tab with.
 - **`search-replace`**: Replace patterns in files.
     - `--search` regular expression to use for search.
     - `--replacement` replacement for matches.
+- **`properties-whitespace`**: Remove whitespace around equal signs in property files.
+  An application of the `search-replace` hook.
+
+#### Execute linter
+
 - **`ts-ng-lint`**: Execute `ng lint` for changed files only.
     - `--fix` will call `ng lint` with `--fix`.
     - `--ng-path` can be used to give the path to the `ng` executable. Default is `node_modules/.bin/ng`.
+
+#### Check for patterns
+
 - **`ts-no-debugger`**: Check for lines containing `debugger` statements.
 - **`ts-no-console`**: Check for lines containing `console` logging statements.
 - **`ts-no-window`**: Check for lines containing `window` statements.
 - **`ts-no-focus-ignore`**: Check for focus and ignore of [jasmine](https://jasmine.github.io/) and [jest](https://jestjs.io/) tests.
-- **`properties-whitespace`**: Remove whitespace around equal signs in property files.
 
 
 ### References
