@@ -8,14 +8,14 @@ For some useful generic hooks see: [pre-commit/pre-commit-hooks](https://github.
 
 ### Using pre-commit-hooks with pre-commit
 
-Add this to your `.pre-commit-config.yaml`
-
+Add this to your `.pre-commit-config.yaml`:
+```
     -   repo: https://github.com/boidolr/pre-commit-hooks
         rev: v3.4  # Use the ref you want to point at
         hooks:
         -   id: prepare-message
         # -   id: ...
-
+```
 For a more complete example see [.pre-commit-config.yaml](.pre-commit-config.yaml).
 
 ### Available hooks
@@ -31,7 +31,7 @@ For a more complete example see [.pre-commit-config.yaml](.pre-commit-config.yam
 - **`format-message`**: Ensure commit message conforms to format of headline followed by two empty lines.
     - `--capitalize` if the subject line should be capitalized. Other lines remain unchanged.
 - **`spellcheck-message`**: Test the message against a known dictionary.
-    - `--language` can be used to switch to other supported languages then English (`en`).
+    - `--language` can be used to switch to other supported languages than English (`en`).
     - `--dictionary` will specify a (non-default) dictionary to be used with autocorrect. The format is a JSON (string, integer) file.
 - **`restore-message`**: Restore commit message.
     In case the previous commit was aborted this hook restores the content of `COMMIT_EDITMSG` the commit message into the editor.
