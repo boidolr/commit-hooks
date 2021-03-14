@@ -1,11 +1,11 @@
-import subprocess
+import subprocess  # nosec
 import typing
 
 
 def _execute_command(
     *args: str, returncode: typing.Optional[int] = None
 ) -> typing.Optional[str]:
-    result = subprocess.run(
+    result = subprocess.run(  # nosec
         args, encoding="utf-8", stderr=subprocess.DEVNULL, stdout=subprocess.PIPE
     )
     if (
