@@ -9,12 +9,12 @@ from typing import Pattern, Optional, Match, Sequence
 from .command_util import _execute_command
 
 
-def _get_git_path(file_name: str) -> Optional[str]:
-    return _execute_command("git", "rev-parse", "--git-path", file_name)
+def _get_current_git_path() -> Optional[str]:
+    return _execute_command("git", "rev-parse", "--git-path", ".")
 
 
 def _git_op_in_progress() -> bool:
-    git_dir = _get_git_path(".")
+    git_dir = _get_current_git_path()
     if not git_dir:
         raise FileNotFoundError("Failed to find git directory")
     files = ("rebase-merge", "rebase-apply", "MERGE_HEAD", "MERGE_MSG")
@@ -24,8 +24,7 @@ def _git_op_in_progress() -> bool:
 
 
 def _get_branch_name() -> Optional[str]:
-    name = _execute_command("git", "symbolic-ref", "--short", "HEAD")
-    return name
+    return _execute_command("git", "symbolic-ref", "--short", "HEAD")
 
 
 def _is_wrong_message_prefix(
