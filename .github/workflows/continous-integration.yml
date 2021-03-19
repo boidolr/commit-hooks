@@ -2,11 +2,11 @@ name: CI
 on:
   push:
     branches:
-      - master
+      - main
       - develop
   pull_request:
     branches:
-      - master
+      - main
   schedule:
     - cron: "5 7 13 * *"
   workflow_dispatch:
@@ -55,10 +55,10 @@ jobs:
     runs-on: ubuntu-latest
     needs:
       - "build"
-    # can not push to master - it is protected
+    # can not push to main - it is protected
     if: >
       github.actor != 'github-actions' &&
-      github.ref != 'refs/heads/master'
+      github.ref != 'refs/heads/main'
     env:
       GIT_USER: github-actions
 

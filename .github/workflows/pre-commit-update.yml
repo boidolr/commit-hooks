@@ -74,5 +74,5 @@ jobs:
               repo: repository.repo,
               title,
               head: 'github-action/pre-commit',
-              base: 'master',
+              base: 'main',
             });
