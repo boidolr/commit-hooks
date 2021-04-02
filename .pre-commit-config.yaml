@@ -14,7 +14,7 @@ default_stages: [commit]
 fail_fast: false
 exclude: ^$
 repos:
-  - repo: https://github.com/boidolr/pre-commit-hooks
+  - repo: https://github.com/boidolr/commit-hooks
     rev: v3.4
     hooks:
       # - id: prepare-message

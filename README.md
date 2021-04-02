@@ -1,4 +1,4 @@
-pre-commit-hooks [![tag](https://img.shields.io/github/v/tag/boidolr/pre-commit-hooks)](https://github.com/boidolr/pre-commit-hooks/tags) [![Build Status](https://github.com/boidolr/pre-commit-hooks/workflows/CI/badge.svg?branch=master)](https://github.com/boidolr/pre-commit-hooks/actions) [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
+commit-hooks [![tag](https://img.shields.io/github/v/tag/boidolr/commit-hooks)](https://github.com/boidolr/commit-hooks/tags) [![Build Status](https://github.com/boidolr/commit-hooks/workflows/CI/badge.svg?branch=master)](https://github.com/boidolr/commit-hooks/actions) [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
 ================
 
 Some hooks for [pre-commit](https://github.com/pre-commit/pre-commit).
@@ -6,11 +6,11 @@ Some hooks for [pre-commit](https://github.com/pre-commit/pre-commit).
 For some useful generic hooks see: [pre-commit/pre-commit-hooks](https://github.com/pre-commit/pre-commit-hooks) and [pre-commit/pygrep-hooks](https://github.com/pre-commit/pygrep-hooks)
 
 
-### Using pre-commit-hooks with pre-commit
+### Using commit-hooks with pre-commit
 
 Add this to your `.pre-commit-config.yaml`:
 ```
-    -   repo: https://github.com/boidolr/pre-commit-hooks
+    -   repo: https://github.com/boidolr/commit-hooks
         rev: v3.4  # Use the ref you want to point at
         hooks:
         -   id: prepare-message
