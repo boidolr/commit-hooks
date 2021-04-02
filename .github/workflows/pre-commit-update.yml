@@ -2,7 +2,7 @@ name: Automatic update
 on:
   workflow_dispatch:
   schedule:
-    - cron: "5 7 9 * *"
+    - cron: "5 7 */7 * *"
 
 jobs:
   update-pre-commit:
