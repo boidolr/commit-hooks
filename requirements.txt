@@ -1,4 +1,4 @@
 autocorrect==2.3.0
-pillow==8.1.2
+pillow==8.2.0
 pillow-avif-plugin==1.0.1
 scour==0.38.2
