@@ -15,7 +15,7 @@ fail_fast: false
 exclude: ^$
 repos:
   - repo: https://github.com/boidolr/commit-hooks
-    rev: v3.4
+    rev: v3.5
     hooks:
       # - id: prepare-message
       #   args: [--ignore-branch=master]
@@ -70,7 +70,7 @@ repos:
       - id: black
 
   - repo: https://gitlab.com/pycqa/flake8
-    rev: 3.8.4
+    rev: 3.9.0
     hooks:
       - id: flake8
 
@@ -81,7 +81,7 @@ repos:
         types: [yaml]
 
   - repo: https://github.com/asottile/pyupgrade
-    rev: v2.10.1
+    rev: v2.11.0
     hooks:
       - id: pyupgrade
         args: [--py36-plus]
