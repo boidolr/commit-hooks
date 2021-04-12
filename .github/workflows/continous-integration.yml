@@ -45,9 +45,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -q -r requirements.txt -r requirements-dev.txt
-
-      - name: Install plugin
-        run: pip install -q pytest-github-actions-annotate-failures
+          pip install -q pytest-github-actions-annotate-failuresres
 
       - name: Execute pytest
         run: pytest -q
@@ -67,6 +65,7 @@ jobs:
       - uses: actions/checkout@v2
         with:
           ref: ${{ github.event.pull_request.head.ref }}
+
       - id: setup-python
         uses: actions/setup-python@v2.2.1
 
@@ -94,11 +93,10 @@ jobs:
           BRANCH="${REF:=GITHUB_REF}"
           echo ::set-output name=branch::${BRANCH}
 
-      - name: Install black
-        run: pip install -q black
-
       - name: Run black
-        run: black .
+        run: |
+          pip install -q black
+          black .
 
       - name: Check for modified files after black run
         id: git-check-black
