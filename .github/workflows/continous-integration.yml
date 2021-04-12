@@ -45,7 +45,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -q -r requirements.txt -r requirements-dev.txt
-          pip install -q pytest-github-actions-annotate-failuresres
+          pip install -q pytest-github-actions-annotate-failures
 
       - name: Execute pytest
         run: pytest -q
