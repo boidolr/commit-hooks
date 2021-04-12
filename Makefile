@@ -15,7 +15,7 @@ $(VENV):
 $(VENV)/$(MARKER): $(VENV)
 
 
-## venv        : Initialize virtual environment with dependencies.
+## venv          : Initialize virtual environment with dependencies.
 .PHONY: venv
 venv: $(VENV)/$(MARKER)
 	$(VENV)/pip install -q -r requirements.txt -r requirements-dev.txt
@@ -30,57 +30,81 @@ help: Makefile
 	@sed -n 's/^##//p' $< | sort
 
 
-## sync        : Update yaml versions from requirements file.
+## sync          : Update yaml versions from requirements file.
 .PHONY: sync
 sync: requirements.txt
 	python3 build/sync_versions.py $< .pre-commit-hooks.yaml
 
 
-## upgrade     : Update pre-commit configuration.
+## upgrade       : Update pre-commit configuration.
 .PHONY: upgrade
 upgrade: venv
 	$(VENV)/pre-commit autoupdate
 
 
-## check       : Execute pre-commit hooks.
+## check         : Execute pre-commit hooks.
 .PHONY: check
 check: venv
 	$(VENV)/pre-commit run --all-files
 
 
-## format      : Format code.
+## format        : Format code.
 .PHONY: format
 format: venv
 	$(VENV)/black -q .
 
 
-## test        : Execute tests.
+## test          : Execute tests.
 .PHONY: test
 test: venv
 	$(VENV)/pytest -q
 
 
-## version     : Show which version is detected and what the next one would be.
+## version       : Show which version is detected and what the next one would be.
 CURRENT:=$(subst v,,$(shell git describe --abbrev=0 --tags))
 PARTS:=$(subst ., ,$(CURRENT))
-MAJOR:=$(firstword $(PARTS))
-MINOR:=$(shell echo $$(($(lastword $(PARTS))+1)))
-VERSION:=$(MAJOR).$(MINOR)
+MAJOR:=$(word 1, $(PARTS))
+MINOR:=$(word 2, $(PARTS))
+PATCH:=$(word 3, $(PARTS))
+VERSION:=$(MAJOR).$(MINOR).$(PATCH)
 .PHONY: version
 version:
-	@echo "Version update: $(CURRENT) -> $(VERSION)"
+ifeq "${CURRENT}" "${VERSION}"
+	@echo "Current version: ${CURRENT}"
+else
+	@echo "Version mismatch: ${CURRENT} != ${VERSION}"
+endif
 
 
-## release     : Increase version in files, commit and tag with git.
+# release        : Use the value of `NEXT_VERSION` to create new release
 .PHONY: release
 release: test version
-	@sed  -E -e "s/rev: v${CURRENT}/rev: v${VERSION}/" -i '' README.md
-	@sed  -E -e "s/version = ${CURRENT}/version = ${VERSION}/" -i '' setup.cfg
+	@echo "Next version: ${NEXT_VERSION}"
+	@sed  -E -e "s/rev: v${CURRENT}/rev: v${NEXT_VERSION})/" -i '' README.md
+	@sed  -E -e "s/version = ${CURRENT}/version = ${NEXT_VERSION}/" -i '' setup.cfg
 	@git add README.md setup.cfg
-	git commit -m "Release version ${VERSION}" && git tag "v${VERSION}"
+	git commit -m "Release version ${NEXT_VERSION}" && git tag "v${NEXT_VERSION}"
 
 
-## clean       : Remove virtual environment.
+## release-patch : Increase patch version in files, commit and tag with git.
+.PHONY: release-patch
+release-patch: NEXT_VERSION:=${MAJOR}.${MINOR}.$$((${PATCH}+1))
+release-patch: release
+
+
+## release-minor : Increase minor version in files, commit and tag with git.
+.PHONY: release-minor
+release-minor: NEXT_VERSION:=${MAJOR}.$$((${MINOR}+1)).0
+release-minor: release
+
+
+## release-major : Increase major version in files, commit and tag with git.
+.PHONY: release-major
+release-major: NEXT_VERSION:=$$((${MAJOR}+1)).0.0
+release-major: release
+
+
+## clean         : Remove virtual environment.
 .PHONY: clean
 clean:
 	rm -r "$(VENVDIR)"
