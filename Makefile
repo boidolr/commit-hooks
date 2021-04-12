@@ -33,7 +33,7 @@ help: Makefile
 ## sync        : Update yaml versions from requirements file.
 .PHONY: sync
 sync: requirements.txt
-	python3 build/sync_versions.py $< setup.cfg .pre-commit-hooks.yaml
+	python3 build/sync_versions.py $< .pre-commit-hooks.yaml
 
 
 ## upgrade     : Update pre-commit configuration.
