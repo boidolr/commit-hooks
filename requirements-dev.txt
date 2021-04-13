@@ -1,7 +1,0 @@
-black
-pre-commit
-pytest
-pytest-clarity
-pytest-cov
-pytest-flake8
-pytest-mypy

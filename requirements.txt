@@ -1,4 +1,0 @@
-autocorrect==2.4.0
-pillow==8.2.0
-pillow-avif-plugin==1.1.0
-scour==0.38.2

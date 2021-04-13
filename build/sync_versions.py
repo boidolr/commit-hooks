@@ -7,7 +7,9 @@ import typing
 
 def main(source: str, targets: typing.Iterable[str]) -> None:
     with open(source) as fh:
-        dependency_versions = [line.strip().split("==") for line in fh.readlines()]
+        dependency_versions = [
+            line.strip().split("==") for line in fh.readlines() if "==" in line
+        ]
         versions = [
             (re.compile(v[0] + r"==[^\s,\]]+"), v[0] + "==" + v[1])
             for v in dependency_versions

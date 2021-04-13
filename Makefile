@@ -18,7 +18,7 @@ $(VENV)/$(MARKER): $(VENV)
 ## venv          : Initialize virtual environment with dependencies.
 .PHONY: venv
 venv: $(VENV)/$(MARKER)
-	$(VENV)/pip install -q -r requirements.txt -r requirements-dev.txt
+	$(VENV)/pip install -q .[tests]
 
 
 .PHONY: all
@@ -30,9 +30,9 @@ help: Makefile
 	@sed -n 's/^##//p' $< | sort
 
 
-## sync          : Update yaml versions from requirements file.
+## sync          : Update yaml versions from setup.cfg file.
 .PHONY: sync
-sync: requirements.txt
+sync: setup.cfg
 	python3 build/sync_versions.py $< .pre-commit-hooks.yaml
 
 
