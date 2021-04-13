@@ -1,6 +1,6 @@
 import shutil
-
 from pathlib import Path
+
 from hooks.optimize_webp import main
 
 

@@ -2,11 +2,14 @@
 import argparse
 import json
 import sys
-
-from autocorrect import Speller, word_regexes
 from difflib import ndiff
 from re import sub
-from typing import Dict, Optional, Sequence
+from typing import Dict
+from typing import Optional
+from typing import Sequence
+
+from autocorrect import Speller
+from autocorrect import word_regexes
 
 Dictionary = Dict[str, int]
 

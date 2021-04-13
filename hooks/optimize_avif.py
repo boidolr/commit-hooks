@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 import argparse
 import sys
-import pillow_avif  # noqa: F401
 from pathlib import Path
+from typing import Optional
+from typing import Sequence
+
+import pillow_avif  # noqa: F401
 from PIL import Image
-from typing import Sequence, Optional
 
 
 def _pillow(path: Path, qmin: int, qmax: int, effort: int) -> Path:

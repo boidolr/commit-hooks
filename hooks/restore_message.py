@@ -2,7 +2,8 @@
 import argparse
 import pathlib
 import sys
-from typing import Optional, Sequence
+from typing import Optional
+from typing import Sequence
 
 from .command_util import _execute_command
 

@@ -64,11 +64,6 @@ repos:
       - id: python-use-type-annotations
       - id: rst-backticks
 
-  - repo: https://github.com/psf/black
-    rev: 20.8b1
-    hooks:
-      - id: black
-
   - repo: https://gitlab.com/pycqa/flake8
     rev: 3.9.0
     hooks:
@@ -85,6 +80,17 @@ repos:
     hooks:
       - id: pyupgrade
         args: [--py36-plus]
+
+  - repo: https://github.com/asottile/reorder_python_imports
+    rev: v2.4.0
+    hooks:
+      - id: reorder-python-imports
+        args: [--py36-plus]
+
+  - repo: https://github.com/psf/black
+    rev: 20.8b1
+    hooks:
+      - id: black
 
   - repo: https://github.com/pre-commit/mirrors-mypy
     rev: v0.812
@@ -108,7 +114,7 @@ repos:
         name: Synchronize dependencies
         entry: make sync
         language: system
-        files: ^(requirements\.txt|setup\.cfg|build/sync_versions\.py)$
+        files: ^(setup\.cfg|build/sync_versions\.py)$
         pass_filenames: false
       - id: run-tests
         name: Run tests

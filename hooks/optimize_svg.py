@@ -2,8 +2,10 @@
 import argparse
 import sys
 from pathlib import Path
+from typing import Optional
+from typing import Sequence
+
 from scour import scour
-from typing import Sequence, Optional
 
 
 def _optimize_scour(path: Path) -> Path:

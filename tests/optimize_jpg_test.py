@@ -1,6 +1,6 @@
 import shutil
-
 from pathlib import Path
+
 from hooks.optimize_jpg import main
 
 

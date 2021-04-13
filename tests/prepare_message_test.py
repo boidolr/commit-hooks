@@ -1,7 +1,7 @@
 import pytest
 
-from hooks.prepare_message import main
 from hooks.command_util import _execute_command
+from hooks.prepare_message import main
 
 
 def test_abort_when_no_branch(temp_git_dir):

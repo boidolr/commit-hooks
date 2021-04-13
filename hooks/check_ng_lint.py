@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 import argparse
 import sys
-from typing import Sequence, Optional
+from typing import Optional
+from typing import Sequence
+
 from .command_util import _execute_command
 
 

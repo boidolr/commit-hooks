@@ -2,8 +2,8 @@
 import argparse
 import sys
 from operator import methodcaller
-
-from typing import Optional, Sequence
+from typing import Optional
+from typing import Sequence
 
 
 def _replace_tabs(filename: str, tabsize: int) -> int:

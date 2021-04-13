@@ -2,8 +2,10 @@
 import argparse
 import sys
 from pathlib import Path
+from typing import Optional
+from typing import Sequence
+
 from PIL import Image
-from typing import Sequence, Optional
 
 
 def _optimize_pillow(path: Path, lossless: bool, quality: int) -> Path:

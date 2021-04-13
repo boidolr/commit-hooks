@@ -1,4 +1,5 @@
 import pathlib
+
 import pytest
 
 from hooks.command_util import _execute_command

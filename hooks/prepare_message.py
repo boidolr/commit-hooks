@@ -4,7 +4,10 @@ import re
 import sys
 from operator import methodcaller
 from pathlib import Path
-from typing import Pattern, Optional, Match, Sequence
+from typing import Match
+from typing import Optional
+from typing import Pattern
+from typing import Sequence
 
 from .command_util import _execute_command
 
