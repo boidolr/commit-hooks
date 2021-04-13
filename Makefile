@@ -80,7 +80,7 @@ endif
 .PHONY: release
 release: test version
 	@echo "Next version: ${NEXT_VERSION}"
-	@sed  -E -e "s/rev: v${CURRENT}/rev: v${NEXT_VERSION})/" -i '' README.md
+	@sed  -E -e "s/rev: v${CURRENT}/rev: v${NEXT_VERSION}/" -i '' README.md
 	@sed  -E -e "s/version = ${CURRENT}/version = ${NEXT_VERSION}/" -i '' setup.cfg
 	@git add README.md setup.cfg
 	git commit -m "Release version ${NEXT_VERSION}" && git tag "v${NEXT_VERSION}"

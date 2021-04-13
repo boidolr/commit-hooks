@@ -11,9 +11,9 @@ For some useful generic hooks see: [pre-commit/pre-commit-hooks](https://github.
 Add this to your `.pre-commit-config.yaml`:
 ```
     -   repo: https://github.com/boidolr/commit-hooks
-        rev: v3.5.1)  # Use the ref you want to point at
+        rev: v3.5.1  # Use the ref you want to point at
         hooks:
-        -   id: prepare-message
+        -   id: format-message
         # -   id: ...
 ```
 For a more complete example see [.pre-commit-config.yaml](.pre-commit-config.yaml).
