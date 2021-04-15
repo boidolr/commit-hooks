@@ -15,7 +15,7 @@ fail_fast: false
 exclude: ^$
 repos:
   - repo: https://github.com/boidolr/commit-hooks
-    rev: v3.5
+    rev: v3.5.1
     hooks:
       # - id: prepare-message
       #   args: [--ignore-branch=master]
@@ -76,7 +76,7 @@ repos:
         types: [yaml]
 
   - repo: https://github.com/asottile/pyupgrade
-    rev: v2.11.0
+    rev: v2.12.0
     hooks:
       - id: pyupgrade
         args: [--py36-plus]
