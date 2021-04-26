@@ -59,7 +59,7 @@ jobs:
           git push --set-upstream origin HEAD:github-action/pre-commit
 
       - name: Create pre-commit update pull request
-        uses: "actions/github-script@v3"
+        uses: "actions/github-script@v4.0.2"
         if: >
           steps.git-check-changes.outputs.updated == 'true'
         with:
