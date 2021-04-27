@@ -8,7 +8,7 @@ on:
     branches:
       - main
   schedule:
-    - cron: "5 7 13 * *"
+    - cron: "5 7 */9 * *"
   workflow_dispatch:
 
 jobs:
@@ -20,8 +20,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-        with:
-          ref: ${{ github.event.pull_request.head.ref }}
 
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2.2.2
@@ -39,89 +37,12 @@ jobs:
           path: ${{ steps.pip-cache.outputs.dir }}
           key: ${{ runner.os }}-pip-${{ matrix.python-version }}-${{ hashFiles('**/requirements*.txt') }}
           restore-keys: |
-            ${{ runner.os }}-pip-${{ matrix.python-version }}-
+            ${{ runner.os }}-pip-${{ matrix.python-version }}
 
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip tox
-          pip install -q pytest-github-actions-annotate-failures
+          python -m pip install -q --upgrade pip
+          pip3 install -q tox pytest-github-actions-annotate-failures
 
       - name: Execute tests
         run: tox -e py
-
-  code-checks:
-    runs-on: ubuntu-latest
-    needs:
-      - "build"
-    # can not push to main - it is protected
-    if: >
-      github.actor != 'github-actions' &&
-      github.ref != 'refs/heads/main'
-    env:
-      GIT_USER: github-actions
-
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          ref: ${{ github.event.pull_request.head.ref }}
-
-      - id: setup-python
-        uses: actions/setup-python@v2.2.2
-
-      - name: Get pip cache dir
-        id: pip-cache
-        run: |
-          echo "::set-output name=dir::$(pip cache dir)"
-
-      - name: Configure pip cache
-        uses: actions/cache@v2.1.5
-        with:
-          path: ${{ steps.pip-cache.outputs.dir }}
-          key: ${{ runner.os }}-pip-${{ steps.setup-python.outputs.python-version }}
-
-      - name: Setup git author
-        run: |
-          git config --local user.name ${GIT_USER}
-          git config --local user.email "$(git --no-pager log --format=format:'%ae' -n 1)"
-          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
-
-      - name: Set git branch
-        id: git-branch
-        run: |
-          REF="${{github.head_ref}}"
-          BRANCH="${REF:=GITHUB_REF}"
-          echo ::set-output name=branch::${BRANCH}
-
-      - name: Run black
-        run: |
-          pip install -q black
-          black .
-
-      - name: Check for modified files after black run
-        id: git-check-black
-        run: |
-          MODIFIED=$(if [[ -z "$(git status --porcelain)" ]]; then echo "false"; else echo "true"; fi)
-          echo ::set-output name=modified::${MODIFIED}
-
-      - name: Push black changes
-        if: steps.git-check-black.outputs.modified == 'true'
-        run: |
-          git commit -am "Format Python code with psf/black"
-          git pull --rebase origin ${{steps.git-branch.outputs.branch}}
-          git push origin HEAD:${{steps.git-branch.outputs.branch}}
-
-      - name: Synchronize dependencies
-        run: make sync
-
-      - name: Check for modified files after updates
-        id: git-check-updates
-        run: |
-          MODIFIED=$(if [[ -z "$(git status --porcelain)" ]]; then echo "false"; else echo "true"; fi)
-          echo ::set-output name=modified::${MODIFIED}
-
-      - name: Push update changes
-        if: steps.git-check-updates.outputs.modified == 'true'
-        run: |
-          git commit -am "Update dependencies in all config files"
-          git pull --rebase origin ${{steps.git-branch.outputs.branch}}
-          git push origin HEAD:${{steps.git-branch.outputs.branch}}
