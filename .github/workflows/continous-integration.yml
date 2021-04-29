@@ -42,7 +42,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install -q --upgrade pip
-          pip3 install -q tox pytest-github-actions-annotate-failures
+          pip install -q tox pytest-github-actions-annotate-failures
 
       - name: Execute tests
         run: tox -e py

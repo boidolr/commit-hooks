@@ -10,6 +10,7 @@ jobs:
     env:
       GIT_USER: github-actions
       GIT_EMAIL: boidolr@users.noreply.github.com
+      TARGET_BRANCH: main
 
     steps:
       - uses: actions/checkout@v2
@@ -65,11 +66,12 @@ jobs:
           script: |
             const pullRequest = context.payload.pull_request
             const repository = context.repo
+            const { TARGET_BRANCH } = process.env
 
             await github.pulls.create({
               owner: repository.owner,
               repo: repository.repo,
               title: 'Update pre-commit config',
               head: 'github-action/pre-commit',
-              base: 'main',
+              base: `${TARGET_BRANCH}`,
             });
