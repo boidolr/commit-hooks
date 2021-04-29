@@ -1,0 +1,26 @@
+name: Black
+
+on: [pull_request_target]
+
+jobs:
+  black:
+    runs-on: ubuntu-latest
+    env:
+      GIT_USER: github-actions
+      GIT_EMAIL: boidolr@users.noreply.github.com
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+
+      - uses: actions/setup-python@v2.2.2
+
+      - name: Run black
+        run: |
+          python -m pip install --upgrade pip
+          pip install -q black
+          black .
+          git config user.name "${GIT_USER}"
+          git config user.email "${GIT_EMAIL}"
+          git commit -am "Format Python code with psf/black" || echo "Nothing to commit"
+          git push origin HEAD

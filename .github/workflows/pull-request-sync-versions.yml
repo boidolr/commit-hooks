@@ -1,0 +1,32 @@
+name: Sync
+
+on: [pull_request_target]
+
+jobs:
+  script:
+    runs-on: ubuntu-latest
+    env:
+      GIT_USER: github-actions
+      GIT_EMAIL: boidolr@users.noreply.github.com
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          repository: boidolr/commit-hooks
+          path: tools
+          ref: main
+
+      - uses: actions/checkout@v2
+        with:
+          path: main
+          ref: ${{ github.event.pull_request.head.ref }}
+
+      - uses: actions/setup-python@v2
+
+      - name: Sync dependencies
+        run: |
+          python tools/builds/ync_versions.py main/setup.cfg main/.pre-commit-hooks.yaml
+          cd main
+          git config user.name "${GIT_USER}"
+          git config user.email "${GIT_EMAIL}"
+          git commit -am "Syncronize dependencies" || echo "Nothing to commit"
+          git push origin HEAD
