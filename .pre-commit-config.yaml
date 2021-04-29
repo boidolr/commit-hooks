@@ -15,7 +15,7 @@ fail_fast: false
 exclude: ^$
 repos:
   - repo: https://github.com/boidolr/commit-hooks
-    rev: v3.5.1
+    rev: v3.5.2
     hooks:
       # - id: prepare-message
       #   args: [--ignore-branch=master]
@@ -82,13 +82,13 @@ repos:
         args: [--py36-plus]
 
   - repo: https://github.com/asottile/reorder_python_imports
-    rev: v2.4.0
+    rev: v2.5.0
     hooks:
       - id: reorder-python-imports
         args: [--py36-plus]
 
   - repo: https://github.com/psf/black
-    rev: 20.8b1
+    rev: 21.4b2
     hooks:
       - id: black
 
