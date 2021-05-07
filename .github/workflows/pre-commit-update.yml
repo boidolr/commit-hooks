@@ -38,15 +38,16 @@ jobs:
       - name: Update pre-commit config
         run: pre-commit autoupdate
 
-      - name: Ensure pre-commit config remains functional
-        id: pre-commit-check
-        run: pre-commit run --all-files
-
       - name: Check for modified files after config update
         id: git-check-changes
         run: |
           UPDATED=$(if [[ -z "$(git status --porcelain)" ]]; then echo "false"; else echo "true"; fi)
           echo "::set-output name=updated::${UPDATED}"
+
+      - name: Ensure pre-commit config remains functional
+        if: >
+          steps.git-check-changes.outputs.updated == 'true'
+        run: pre-commit run --all-files
 
       - name: Push pre-commit changes
         if: >
