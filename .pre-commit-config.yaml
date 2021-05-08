@@ -76,7 +76,7 @@ repos:
         types: [yaml]
 
   - repo: https://github.com/asottile/pyupgrade
-    rev: v2.13.0
+    rev: v2.14.0
     hooks:
       - id: pyupgrade
         args: [--py36-plus]
@@ -88,7 +88,7 @@ repos:
         args: [--py36-plus]
 
   - repo: https://github.com/psf/black
-    rev: 21.4b2
+    rev: 21.5b0
     hooks:
       - id: black
 
