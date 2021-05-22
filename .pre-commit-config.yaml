@@ -42,7 +42,7 @@ repos:
       # - id: optimize-webp
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.0.0
+    rev: v4.0.1
     hooks:
       - id: check-merge-conflict
       - id: check-yaml
@@ -76,7 +76,7 @@ repos:
         types: [yaml]
 
   - repo: https://github.com/asottile/pyupgrade
-    rev: v2.15.0
+    rev: v2.18.1
     hooks:
       - id: pyupgrade
         args: [--py36-plus]
