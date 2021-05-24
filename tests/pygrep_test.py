@@ -31,6 +31,7 @@ def test_ts_no_console_positive(s):
     (
         "obj.console()",
         "obj.console.log()",
+        "// console.log()",
     ),
 )
 def test_ts_no_console_negative(s):
@@ -54,6 +55,7 @@ def test_ts_no_window_positive(s):
     (
         '"win" + "dow"',
         "this.window",
+        "// window",
     ),
 )
 def test_ts_no_window_negative(s):
@@ -76,6 +78,7 @@ def test_ts_no_debugger_positive(s):
     (
         'debug("function is ok")',
         'obj.debugger("method is ok")',
+        "// debugger // comment is ok",
     ),
 )
 def test_ts_no_debugger_negative(s):
@@ -102,6 +105,7 @@ def test_ts_no_focus_ignore_positive(s):
     (
         'describe("block", () => {',
         'it("case", () => {',
+        '// fdescribe("commented block", () => ({}))',
     ),
 )
 def test_ts_no_focus_ignore_negative(s):
