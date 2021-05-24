@@ -42,6 +42,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     )
     args = parser.parse_args(argv)
 
+    ret = 0
     for file in args.filenames:
         try:
             optimize_png(file, args.threshold)
@@ -50,9 +51,9 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
                 f"Failed optimization for {file} ({exc})",
                 file=sys.stderr,
             )
-            return 1
+            ret = 1
 
-    return 0
+    return ret
 
 
 if __name__ == "__main__":
