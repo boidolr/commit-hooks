@@ -24,7 +24,7 @@ jobs:
 
       - name: Sync dependencies
         run: |
-          python tools/builds/ync_versions.py main/setup.cfg repo/.pre-commit-hooks.yaml
+          python tools/build/sync_versions.py repo/setup.cfg repo/.pre-commit-hooks.yaml
           git -C repo config user.name "${GIT_USER}"
           git -C repo config user.email "${GIT_EMAIL}"
           git -C repo commit -am "Syncronize dependencies" || echo "Nothing to commit"
