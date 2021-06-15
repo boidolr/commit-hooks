@@ -59,7 +59,7 @@ repos:
       - id: trailing-whitespace
 
   - repo: https://github.com/pre-commit/pygrep-hooks
-    rev: v1.8.0
+    rev: v1.9.0
     hooks:
       - id: python-use-type-annotations
       - id: rst-backticks
@@ -76,7 +76,7 @@ repos:
         types: [yaml]
 
   - repo: https://github.com/asottile/pyupgrade
-    rev: v2.19.1
+    rev: v2.19.4
     hooks:
       - id: pyupgrade
         args: [--py36-plus]
@@ -88,12 +88,12 @@ repos:
         args: [--py36-plus]
 
   - repo: https://github.com/psf/black
-    rev: 21.5b2
+    rev: 21.6b0
     hooks:
       - id: black
 
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v0.812
+    rev: v0.902
     hooks:
       - id: mypy
 
