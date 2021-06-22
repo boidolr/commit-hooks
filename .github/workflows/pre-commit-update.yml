@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GIT_USER: github-actions
-      GIT_EMAIL: boidolr@users.noreply.github.com
+      GIT_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
       TARGET_BRANCH: main
 
     steps:
