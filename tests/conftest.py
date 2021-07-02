@@ -10,6 +10,9 @@ def temp_git_dir(tmpdir):
     git_dir = tmpdir.join("gits")
     git_dir.mkdir()
     _execute_command("git", "init", "--", str(git_dir))
+    _execute_command(
+        "git", "-C", str(git_dir), "config", "init", "defaultBranch", "main"
+    )
     yield git_dir
 
 
@@ -28,7 +31,7 @@ def temp_merge_conflict(temp_git_dir):
         path.write("second")
         _execute_command("git", "commit", "-am", "second")
 
-        _execute_command("git", "merge", "master")
+        _execute_command("git", "merge", "main")
         assert "<<<<<<< HEAD" in path.read()
     yield temp_git_dir
 
@@ -48,7 +51,7 @@ def temp_rebase_conflict(temp_git_dir):
         path.write("second")
         _execute_command("git", "commit", "-am", "second")
 
-        _execute_command("git", "rebase", "master")
+        _execute_command("git", "rebase", "main")
         assert "<<<<<<< HEAD" in path.read()
 
     yield temp_git_dir
