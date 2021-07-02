@@ -55,6 +55,8 @@ def test_ts_no_window_positive(s):
     (
         '"win" + "dow"',
         "this.window",
+        "'window'",
+        '"window"',
         "// window",
     ),
 )

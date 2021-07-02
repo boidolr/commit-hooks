@@ -31,21 +31,21 @@
   name: Check console debugger statements
   description: Check for lines in JavaScript and TypeScript containing debugger statements.
   language: pygrep
-  entry: '^(?!//).*?\b(?<!\.)debugger\b'
+  entry: ^(?!//).*?\b(?<!\.)debugger\b
   types: [ts]
 
 - id: ts-no-console
   name: Check console use
   description: Check for lines in TypeScript containing console use.
   language: pygrep
-  entry: '^(?!//).*?\b(?<!\.)console\.\w+\('
+  entry: ^(?!//).*?\b(?<!\.)console\.\w+\(
   types: [ts]
 
 - id: ts-no-window
   name: Check window access
   description: Check for lines in JavaScript and TypeScript containing window access.
   language: pygrep
-  entry: '^(?!//).*?\b(?<!\.)window\b'
+  entry: ^(?!//).*?\b(?<![\."'])window\b
   types: [ts]
 
 - id: ts-no-focus-ignore
@@ -54,7 +54,7 @@
     Forbid use of `fit()`, `xit()`, `xtest()`, `test.skip()` for tests and
     `fdescribe()`, `xdescribe()` and `describe.skip()` for suite functions.
   language: pygrep
-  entry: '^(?!//).*?\b(?:fit|xit|it\.skip|test\.skip|xtest|fdescribe|xdescribe|describe\.skip)\s*\('
+  entry: ^(?!//).*?\b(?:fit|xit|it\.skip|test\.skip|xtest|fdescribe|xdescribe|describe\.skip)\s*\(
   types: [ts]
 
 - id: ts-ng-lint
