@@ -60,7 +60,7 @@ test: venv
 	$(VENV)/pytest -q
 
 
-## version       : Show which version is detected and what the next one would be.
+## version       : Show which version is detected
 CURRENT:=$(subst v,,$(shell git describe --abbrev=0 --tags))
 PARTS:=$(subst ., ,$(CURRENT))
 MAJOR:=$(word 1, $(PARTS))
