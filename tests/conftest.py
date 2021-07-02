@@ -9,10 +9,7 @@ from hooks.command_util import _execute_command
 def temp_git_dir(tmpdir):
     git_dir = tmpdir.join("gits")
     git_dir.mkdir()
-    _execute_command("git", "init", "--", str(git_dir))
-    _execute_command(
-        "git", "-C", str(git_dir), "config", "init", "defaultBranch", "main"
-    )
+    _execute_command("git", "init", "--initial-branch=main", "--", str(git_dir))
     yield git_dir
 
 
