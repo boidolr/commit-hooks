@@ -90,7 +90,7 @@
   description: Check whether avifs can be reencoded to decrease file size.
   language: python
   entry: optimize-avif
-  additional_dependencies: [pillow==8.2.0, pillow-avif-plugin==1.1.0]
+  additional_dependencies: [pillow==8.3.1, pillow-avif-plugin==1.1.0]
   types: [avif]
 
 - id: optimize-jpg
@@ -98,7 +98,7 @@
   description: Check whether jpgs can be reencoded to decrease file size.
   language: python
   entry: optimize-jpg
-  additional_dependencies: [pillow==8.2.0]
+  additional_dependencies: [pillow==8.3.1]
   types: [jpeg]
 
 - id: optimize-png
@@ -106,7 +106,7 @@
   description: Check whether pngs can be reencoded to decrease file size.
   language: python
   entry: optimize-png
-  additional_dependencies: [pillow==8.2.0]
+  additional_dependencies: [pillow==8.3.1]
   types: [png]
 
 - id: optimize-svg
@@ -122,7 +122,7 @@
   description: Check whether webps can be reencoded to decrease file size.
   language: python
   entry: optimize-webp
-  additional_dependencies: [pillow==8.2.0]
+  additional_dependencies: [pillow==8.3.1]
   types: [webp]
 
 - id: properties-whitespace
