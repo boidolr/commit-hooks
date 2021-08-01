@@ -4,6 +4,7 @@
 version: 2
 updates:
   - package-ecosystem: "pip"
+    open-pull-requests-limit: 0
     directory: "/"
     schedule:
       interval: "weekly"
@@ -16,6 +17,7 @@ updates:
       - dependency-name: "pytest-flake8"
       - dependency-name: "pytest-mypy"
   - package-ecosystem: "github-actions"
+    open-pull-requests-limit: 0
     directory: "/"
     schedule:
       interval: "weekly"
