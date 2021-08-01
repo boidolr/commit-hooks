@@ -1,7 +1,7 @@
 commit-hooks [![tag](https://img.shields.io/github/v/tag/boidolr/commit-hooks)](https://github.com/boidolr/commit-hooks/tags) [![Build Status](https://github.com/boidolr/commit-hooks/workflows/CI/badge.svg?branch=master)](https://github.com/boidolr/commit-hooks/actions) [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
 ================
 
-Some hooks for [pre-commit](https://github.com/pre-commit/pre-commit).
+A collection of git hooks for use with the [pre-commit](https://github.com/pre-commit/pre-commit) framework. For details see the list of available hooks below.
 
 For some useful generic hooks see: [pre-commit/pre-commit-hooks](https://github.com/pre-commit/pre-commit-hooks) and [pre-commit/pygrep-hooks](https://github.com/pre-commit/pygrep-hooks)
 
@@ -16,7 +16,7 @@ Add this to your `.pre-commit-config.yaml`:
         -   id: format-message
         # -   id: ...
 ```
-For a more complete example see [.pre-commit-config.yaml](.pre-commit-config.yaml).
+For an extended example see [`.pre-commit-config.yaml`](.pre-commit-config.yaml).
 
 ### Available hooks
 
