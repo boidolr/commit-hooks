@@ -18,7 +18,7 @@ jobs:
           script: |
             const repository = context.repo
 
-            await github.repos.createRelease({
+            await github.rest.repos.createRelease({
               owner: repository.owner,
               repo: repository.repo,
               tag_name: context.payload.ref,
