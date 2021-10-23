@@ -18,7 +18,7 @@ $(VENV)/$(MARKER): $(VENV)
 ## venv          : Initialize virtual environment with dependencies.
 .PHONY: venv
 venv: $(VENV)/$(MARKER)
-	$(VENV)/pip install -q .[tests]
+	$(VENV)/pip install -q .[tests,images,spelling]
 
 
 .PHONY: all
