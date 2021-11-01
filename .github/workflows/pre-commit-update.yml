@@ -1,0 +1,78 @@
+name: Automatic update
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "5 7 */7 * *"
+
+jobs:
+  update-pre-commit:
+    runs-on: ubuntu-latest
+    env:
+      GIT_USER: github-actions
+      GIT_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+      TARGET_BRANCH: main
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-python@v2.2.2
+        id: setup-python
+
+      - name: Get pip cache dir
+        id: pip-cache
+        run: |
+          CACHE_DIR=$(pip cache dir)
+          echo "::set-output name=dir::${CACHE_DIR}"
+
+      - name: Configure pip cache
+        uses: actions/cache@v2.1.6
+        with:
+          path: ${{ steps.pip-cache.outputs.dir }}
+          key: ${{ runner.os }}-pip-${{ steps.setup-python.outputs.python-version }}
+
+      - name: Install pre-commit
+        run: |
+          python -m pip install --upgrade pip
+          pip install -q pre-commit
+
+      - name: Update pre-commit config
+        run: pre-commit autoupdate
+
+      - name: Check for modified files after config update
+        id: git-check-changes
+        run: |
+          UPDATED=$(if [[ -z "$(git status --porcelain)" ]]; then echo "false"; else echo "true"; fi)
+          echo "::set-output name=updated::${UPDATED}"
+
+      - name: Ensure pre-commit config remains functional
+        if: >
+          steps.git-check-changes.outputs.updated == 'true'
+        run: pre-commit run --all-files
+
+      - name: Push pre-commit changes
+        if: >
+          steps.git-check-changes.outputs.updated == 'true'
+        run: |
+          git config user.name "${GIT_USER}"
+          git config user.email "${GIT_EMAIL}"
+          git commit -am "Update pre-commit config"
+          git push origin HEAD:github-action/pre-commit
+
+      - name: Create pre-commit update pull request
+        uses: actions/github-script@v5
+        if: >
+          steps.git-check-changes.outputs.updated == 'true'
+        with:
+          github-token: "${{ secrets.GITHUB_TOKEN }}"
+          script: |
+            const pullRequest = context.payload.pull_request
+            const repository = context.repo
+            const { TARGET_BRANCH } = process.env
+
+            await github.rest.pulls.create({
+              owner: repository.owner,
+              repo: repository.repo,
+              title: 'Update pre-commit config',
+              head: 'github-action/pre-commit',
+              base: `${TARGET_BRANCH}`,
+            });
