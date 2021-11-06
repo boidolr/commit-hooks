@@ -1,4 +1,4 @@
-commit-hooks [![tag](https://img.shields.io/github/v/tag/boidolr/commit-hooks)](https://github.com/boidolr/commit-hooks/tags) [![Build Status](https://github.com/boidolr/commit-hooks/workflows/CI/badge.svg?branch=master)](https://github.com/boidolr/commit-hooks/actions) [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
+commit-hooks [![tag](https://img.shields.io/github/v/tag/boidolr/commit-hooks?sort=semver)](https://github.com/boidolr/commit-hooks/tags) [![Build Status](https://github.com/boidolr/commit-hooks/workflows/CI/badge.svg?branch=master)](https://github.com/boidolr/commit-hooks/actions) [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
 ================
 
 A collection of git hooks for use with the [pre-commit](https://github.com/pre-commit/pre-commit) framework. For details see the list of available hooks below.
