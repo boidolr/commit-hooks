@@ -42,7 +42,7 @@ repos:
       # - id: optimize-webp
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.0.1
+    rev: v4.1.0
     hooks:
       - id: check-merge-conflict
       - id: check-yaml
@@ -76,7 +76,7 @@ repos:
         types: [yaml]
 
   - repo: https://github.com/asottile/pyupgrade
-    rev: v2.29.1
+    rev: v2.30.0
     hooks:
       - id: pyupgrade
         args: [--py36-plus]
@@ -93,7 +93,7 @@ repos:
       - id: black
 
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v0.920
+    rev: v0.930
     hooks:
       - id: mypy
 
@@ -104,7 +104,7 @@ repos:
         args: [--configfile, .bandit.yaml]
 
   - repo: https://github.com/shellcheck-py/shellcheck-py
-    rev: v0.8.0.2
+    rev: v0.8.0.3
     hooks:
       - id: shellcheck
 
