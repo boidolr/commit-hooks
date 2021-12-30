@@ -6,36 +6,39 @@ jobs:
   script:
     runs-on: ubuntu-latest
     env:
-      GIT_USER: github-actions
-      GIT_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+      CODE_DIRECTORY: repo
+      TOOL_DIRECTORY: tool
+      TOOL_REPO: boidolr/commit-hooks
+      TOOL_BRANCH: main
     steps:
       - uses: actions/checkout@v2
         with:
-          repository: boidolr/commit-hooks
-          path: tools
-          ref: main
+          repository: "${{ env.TOOL_REPO }}"
+          path: "${{ env.TOOL_DIRECTORY }}"
+          ref: "${{ env.TOOL_BRANCH }}"
 
       - uses: actions/checkout@v2
         with:
-          path: repo
-          ref: ${{ github.event.pull_request.head.ref }}
+          path: "${{ env.CODE_DIRECTORY }}"
+          ref: "${{ github.event.pull_request.head.ref }}"
 
-      - uses: actions/setup-python@v2
+      - uses: ./.github/actions/python-pip-env
 
-      - name: Setup git user
-        run: |
-          git -C repo config user.name "${GIT_USER}"
-          git -C repo config user.email "${GIT_EMAIL}"
+      - run: |
+          python "${{ env.TOOL_DIRECTORY }}"/build/sync_versions.py "${{ env.CODE_DIRECTORY }}"/setup.cfg "${{ env.CODE_DIRECTORY }}"/.pre-commit-hooks.yaml
 
-      - name: Sync dependencies
-        run: |
-          python tools/build/sync_versions.py repo/setup.cfg repo/.pre-commit-hooks.yaml
-          git -C repo commit -am "Syncronize dependencies" || echo "Nothing to commit"
-          git -C repo push origin HEAD
+      - uses: ./.github/actions/git-push
+        with:
+          message: "Synchronize dependencies"
+          branch: "${{ github.event.pull_request.head.ref }}"
+          working-directory: "${{ env.CODE_DIRECTORY }}"
 
-      - name: Run black
-        run: |
+      - run: |
           pip install -q black
-          black repo
-          git -C repo commit -am "Format Python code with psf/black" || echo "Nothing to commit"
-          git -C repo push origin HEAD
+          black "${env.CODE_DIRECTORY}"
+
+      - uses: ./.github/actions/git-push
+        with:
+          message: "Format Python code with psf/black"
+          branch: "${{ github.event.pull_request.head.ref }}"
+          working-directory: "${{ env.CODE_DIRECTORY }}"

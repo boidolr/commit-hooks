@@ -1,0 +1,48 @@
+name: "Setup git user and push changes"
+description: "Setup git user and push changes"
+
+inputs:
+  branch:
+    required: true
+    description: Branch to push
+  message:
+    required: true
+    description: Commit message
+  working-directory:
+    required: false
+    description: Repository to push changes from
+    default: "."
+  user-name:
+    required: false
+    description: Git user name
+    default: github-actions
+  user-email:
+    required: false
+    description: Git user email
+    default: 41898282+github-actions[bot]@users.noreply.github.com
+outputs:
+  pushed-changes:
+    description: "`true` if changes were pushed, `false` otherwise"
+    value: "${{ steps.git-check-changes.outputs.updated }}"
+
+runs:
+  using: composite
+  steps:
+    - name: Check for changes
+      id: git-check-changes
+      run: |
+        UPDATED=$(if [[ -z "$(git status --porcelain)" ]]; then echo "false"; else echo "true"; fi)
+        echo "::set-output name=updated::${UPDATED}"
+      shell: bash
+      working-directory: "${{ inputs.working-directory }}"
+
+    - name: Commit & push changes
+      if: >
+        steps.git-check-changes.outputs.updated == 'true'
+      run: |
+        git config user.name "${{ inputs.user-name }}"
+        git config user.email "${{ inputs.user-email }}"
+        git commit -am "${{ inputs.message }}"
+        git push origin HEAD:"${{ inputs.branch }}"
+      shell: bash
+      working-directory: "${{ inputs.working-directory }}"

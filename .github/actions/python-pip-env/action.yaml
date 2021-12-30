@@ -1,0 +1,33 @@
+name: "Setup python with pip cache"
+description: "Setup python pip cache with cache key"
+
+inputs:
+  python-version:
+    required: false
+    description: "Python version"
+    default: "3.10"
+outputs: {}
+
+runs:
+  using: composite
+  steps:
+    - name: Set up Python ${{ inputs.python-version }}
+      uses: actions/setup-python@v2.3.1
+      with:
+        python-version: ${{ inputs.python-version }}
+
+    - name: Get pip cache dir
+      id: pip-cache
+      run: echo "::set-output name=dir::$(pip cache dir)"
+      shell: bash
+
+    - uses: actions/cache@v2.1.7
+      with:
+        path: ${{ steps.pip-cache.outputs.dir }}
+        key: ${{ runner.os }}-pip-${{ inputs.python-version }}-${{ hashFiles('**/setup.cfg') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-${{ inputs.python-version }}
+
+    - name: Upgrade pip
+      run: python -m pip install -q --upgrade pip
+      shell: bash

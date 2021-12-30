@@ -21,28 +21,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v2.3.1
+      - uses: ./.github/actions/python-pip-env
         with:
-          python-version: ${{ matrix.python-version }}
-
-      - name: Get pip cache dir
-        id: pip-cache
-        run: |
-          echo "::set-output name=dir::$(pip cache dir)"
-
-      - name: pip cache
-        uses: actions/cache@v2.1.7
-        with:
-          path: ${{ steps.pip-cache.outputs.dir }}
-          key: ${{ runner.os }}-pip-${{ matrix.python-version }}-${{ hashFiles('**/requirements*.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-pip-${{ matrix.python-version }}
-
-      - name: Install dependencies
-        run: |
-          python -m pip install -q --upgrade pip
-          pip install -q tox pytest-github-actions-annotate-failures
+          python-version: "${{ matrix.python-version }}"
 
       - name: Execute tests
-        run: tox -e py
+        run: |
+          pip install -q tox
+          tox -e py
