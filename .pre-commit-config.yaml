@@ -79,13 +79,13 @@ repos:
     rev: v2.30.0
     hooks:
       - id: pyupgrade
-        args: [--py36-plus]
+        args: [--py37-plus]
 
   - repo: https://github.com/asottile/reorder_python_imports
     rev: v2.6.0
     hooks:
       - id: reorder-python-imports
-        args: [--py36-plus]
+        args: [--py37-plus]
 
   - repo: https://github.com/psf/black
     rev: 21.12b0
@@ -116,6 +116,7 @@ repos:
         language: system
         files: ^(setup\.cfg|build/sync_versions\.py)$
         pass_filenames: false
+
       - id: run-tests
         name: Run tests
         entry: make test
