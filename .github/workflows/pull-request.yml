@@ -22,12 +22,12 @@ jobs:
           path: "${{ env.CODE_DIRECTORY }}"
           ref: "${{ github.event.pull_request.head.ref }}"
 
-      - uses: ./.github/actions/python-pip-env
+      - uses: "./${{ env.TOOL_REPO }}/.github/actions/python-pip-env"
 
       - run: |
           python "${{ env.TOOL_DIRECTORY }}"/build/sync_versions.py "${{ env.CODE_DIRECTORY }}"/setup.cfg "${{ env.CODE_DIRECTORY }}"/.pre-commit-hooks.yaml
 
-      - uses: ./.github/actions/git-push
+      - uses: "./${{ env.TOOL_REPO }}/.github/actions/git-push"
         with:
           message: "Synchronize dependencies"
           branch: "${{ github.event.pull_request.head.ref }}"
@@ -37,7 +37,7 @@ jobs:
           pip install -q black
           black "${env.CODE_DIRECTORY}"
 
-      - uses: ./.github/actions/git-push
+      - uses: "./${{ env.TOOL_REPO }}/.github/actions/git-push"
         with:
           message: "Format Python code with psf/black"
           branch: "${{ github.event.pull_request.head.ref }}"
