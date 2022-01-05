@@ -66,19 +66,6 @@ For an extended example see [`.pre-commit-config.yaml`](.pre-commit-config.yaml)
 - **`properties-whitespace`**: Remove whitespace around equal signs in property files.
   An application of the `search-replace` hook.
 
-#### Execute linter
-
-- **`ts-ng-lint`**: Execute `ng lint` for changed files only.
-    - `--fix` will call `ng lint` with `--fix`.
-    - `--ng-path` can be used to give the path to the `ng` executable. Default is `node_modules/.bin/ng`.
-
-#### Check for patterns
-
-- **`ts-no-debugger`**: Check for lines containing `debugger` statements.
-- **`ts-no-console`**: Check for lines containing `console` logging statements.
-- **`ts-no-window`**: Check for lines containing `window` statements.
-- **`ts-no-focus-ignore`**: Check for focus and ignore of [jasmine](https://jasmine.github.io/) and [jest](https://jestjs.io/) tests.
-
 
 ### References
 
