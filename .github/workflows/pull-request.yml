@@ -5,40 +5,35 @@ on: [pull_request_target]
 jobs:
   script:
     runs-on: ubuntu-latest
-    env:
-      CODE_DIRECTORY: repo
-      TOOL_DIRECTORY: tool
-      TOOL_REPO: boidolr/commit-hooks
-      TOOL_BRANCH: main
     steps:
       - uses: actions/checkout@v2
         with:
-          repository: "${{ env.TOOL_REPO }}"
-          path: "${{ env.TOOL_DIRECTORY }}"
-          ref: "${{ env.TOOL_BRANCH }}"
+          repository: boidolr/commit-hooks
+          path: tool
+          ref: main
 
       - uses: actions/checkout@v2
         with:
-          path: "${{ env.CODE_DIRECTORY }}"
+          path: repo
           ref: "${{ github.event.pull_request.head.ref }}"
 
-      - uses: "./${{ env.TOOL_REPO }}/.github/actions/python-pip-env"
+      - uses: "./tool/.github/actions/python-pip-env"
 
       - run: |
-          python "${{ env.TOOL_DIRECTORY }}"/build/sync_versions.py "${{ env.CODE_DIRECTORY }}"/setup.cfg "${{ env.CODE_DIRECTORY }}"/.pre-commit-hooks.yaml
+          python tool/build/sync_versions.py repo/setup.cfg repo/.pre-commit-hooks.yaml
 
-      - uses: "./${{ env.TOOL_REPO }}/.github/actions/git-push"
+      - uses: "./tool/.github/actions/git-push"
         with:
           message: "Synchronize dependencies"
           branch: "${{ github.event.pull_request.head.ref }}"
-          working-directory: "${{ env.CODE_DIRECTORY }}"
+          working-directory: repo
 
       - run: |
           pip install -q black
-          black "${env.CODE_DIRECTORY}"
+          black repo
 
-      - uses: "./${{ env.TOOL_REPO }}/.github/actions/git-push"
+      - uses: "./tool/.github/actions/git-push"
         with:
           message: "Format Python code with psf/black"
           branch: "${{ github.event.pull_request.head.ref }}"
-          working-directory: "${{ env.CODE_DIRECTORY }}"
+          working-directory: repo
