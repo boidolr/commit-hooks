@@ -1,0 +1,36 @@
+name: "Create pull request"
+description: "Creates pull request from branch against main branch"
+
+inputs:
+  github-token:
+    required: true
+    description: Github token
+  title:
+    required: true
+    description: Pull request title
+  branch:
+    required: true
+    description: Branch to create pull request from
+outputs: {}
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/github-script@v5
+      with:
+        github-token: "${{ inputs.github-token }}"
+        script: |
+          const { owner, repo, } = context.repo
+
+          const { data: { default_branch } } = await github.rest.repos.get({
+            owner,
+            repo,
+          });
+
+          await github.rest.pulls.create({
+            owner,
+            repo,
+            title: '${{ inputs.title }}',
+            head: '${{ inputs.branch }}',
+            base: default_branch,
+          });

@@ -8,8 +8,7 @@ jobs:
   pre-commit-update:
     runs-on: ubuntu-latest
     env:
-      CHANGE_BRANCH: github-action/pre-commit
-      TARGET_BRANCH: main
+      BRANCH: github-action/pre-commit
 
     steps:
       - uses: actions/checkout@v2
@@ -32,23 +31,13 @@ jobs:
         uses: ./.github/actions/git-push
         with:
           message: "Update pre-commit config"
-          branch: "${{ env.CHANGE_BRANCH }}"
+          branch: "${{ env.BRANCH }}"
 
       - name: Create pre-commit update pull request
-        uses: actions/github-script@v5
+        uses: ./.github/actions/create-pr
         if: >
           steps.git-push.outputs.pushed-changes == 'true'
         with:
           github-token: "${{ secrets.GITHUB_TOKEN }}"
-          script: |
-            const pullRequest = context.payload.pull_request
-            const repository = context.repo
-            const { CHANGE_BRANCH, TARGET_BRANCH } = process.env
-
-            await github.rest.pulls.create({
-              owner: repository.owner,
-              repo: repository.repo,
-              title: 'Update pre-commit config',
-              head: CHANGE_BRANCH,
-              base: TARGET_BRANCH,
-            });
+          title: "Update pre-commit config"
+          branch: "${{ env.BRANCH }}"
