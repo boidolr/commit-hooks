@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - uses: ./.github/actions/python-pip-env
+      - uses: boidolr/actions/python-pip-env@main
 
       - uses: actions/cache@v2.1.7
         with:
@@ -28,13 +28,13 @@ jobs:
 
       - name: Push pre-commit changes
         id: git-push
-        uses: ./.github/actions/git-push
+        uses: boidolr/actions/git-push@main
         with:
           message: "Update pre-commit config"
           branch: "${{ env.BRANCH }}"
 
       - name: Create pre-commit update pull request
-        uses: ./.github/actions/create-pr
+        uses: boidolr/actions/create-pr@main
         if: >
           steps.git-push.outputs.pushed-changes == 'true'
         with:

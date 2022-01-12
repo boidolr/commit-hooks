@@ -17,12 +17,12 @@ jobs:
           path: repo
           ref: "${{ github.event.pull_request.head.ref }}"
 
-      - uses: "./tool/.github/actions/python-pip-env"
+      - uses: boidolr/actions/python-pip-env@main
 
       - run: |
           python tool/build/sync_versions.py repo/setup.cfg repo/.pre-commit-hooks.yaml
 
-      - uses: "./tool/.github/actions/git-push"
+      - uses: boidolr/actions/git-push@main
         with:
           message: "Synchronize dependencies"
           branch: "${{ github.event.pull_request.head.ref }}"
@@ -32,7 +32,7 @@ jobs:
           pip install -q black
           black repo
 
-      - uses: "./tool/.github/actions/git-push"
+      - uses: boidolr/actions/git-push@main
         with:
           message: "Format Python code with psf/black"
           branch: "${{ github.event.pull_request.head.ref }}"
