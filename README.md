@@ -6,66 +6,16 @@ A collection of git hooks for use with the [pre-commit](https://github.com/pre-c
 For some useful generic hooks see: [pre-commit/pre-commit-hooks](https://github.com/pre-commit/pre-commit-hooks) and [pre-commit/pygrep-hooks](https://github.com/pre-commit/pygrep-hooks)
 
 
-### Using commit-hooks with pre-commit
+### Deprecation notice
 
-Add this to your `.pre-commit-config.yaml`:
-```
-    -   repo: https://github.com/boidolr/commit-hooks
-        rev: v3.6.0  # Use the ref you want to point at
-        hooks:
-        -   id: format-message
-        # -   id: ...
-```
-For an extended example see [`.pre-commit-config.yaml`](.pre-commit-config.yaml).
+Note that this repository is no longer maintained.
+A replacement of these hooks can be found in the following repositories:
 
-### Available hooks
+- https://github.com/boidolr/pre-commit-text
+- https://github.com/boidolr/pre-commit-images
+- https://github.com/boidolr/pre-commit-msg
 
-#### Change commit messages
-
-- **`prepare-message`**: Change commit messages to include a prefix.
-    - `--ignore-branch` will lead to the branch not being checked.
-    - `--pattern` can be used to change the feature branch pattern to take the message prefix from.
-        Needs to match with `--prefix-pattern`. Defaults to `feature/(\w+-\d+)`.
-    - `--prefix-pattern` should match the prefix of the message to normalize it.
-        Needs to match with `--pattern`. Defaults to `^\s*\w+-\d+\s*:`
-- **`format-message`**: Ensure commit message conforms to format of headline followed by two empty lines.
-    - `--capitalize` if the subject line should be capitalized. Other lines remain unchanged.
-- **`spellcheck-message`**: Test the message against a known dictionary.
-    - `--language` can be used to switch to other supported languages than English (`en`).
-    - `--dictionary` will specify a (non-default) dictionary to be used with autocorrect. The format is a JSON (string, integer) file.
-- **`restore-message`**: Restore commit message.
-    In case the previous commit was aborted this hook restores the content of `COMMIT_EDITMSG` the commit message into the editor.
-    Similar to `git commit --reuse-message=.git/COMMIT_EDITMSG`.
-
-#### Image optimization
-
-- **`optimize-avif`**: Compress `avif` images.
-    - `--threshold` can be used to configure which size difference should be used to keep the image.
-    - `--qmin` to configure minimum quality setting (best: 0, worst: 63).
-    - `--qmax` to configure maximum quality setting (best: 0, worst: 63).
-    - `--effort` to set the quality/speed tradeoff (slowest: 0, fastest: 10).
-- **`optimize-jpg`**: Compress `jpeg` images.
-    - `--threshold` can be used to configure which size difference should be used to keep the image.
-    - `--quality` can be used to configure quality setting for a JPG image.
-- **`optimize-png`**: Compress `png` images.
-    - `--threshold` can be used to configure which size difference should be used to keep the image.
-- **`optimize-svg`**: Compress `svg` images.
-    - `--threshold` can be used to configure which size difference should be used to keep the image.
-- **`optimize-webp`**: Compress `webp` images.
-    - `--threshold` can be used to configure which size difference should be used to keep the image.
-    - `--lossless` switch to lossless compression.
-    - `--quality` can be used to configure quality setting for lossy compression or effort to spend on lossless compression.
-
-#### Change text files
-
-- **`replace-tabs`**: Replace tabs in files.
-    - `--tabsize` spaces to replace a tab with.
-- **`search-replace`**: Replace patterns in files.
-    - `--search` regular expression to use for search.
-    - `--replacement` replacement for matches.
-- **`properties-whitespace`**: Remove whitespace around equal signs in property files.
-  An application of the `search-replace` hook.
-
+The pygrep hooks have better alternatives in [eslint](https://eslint.org/) rules.
 
 ### References
 

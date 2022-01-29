@@ -1,19 +1,19 @@
 - id: restore-message
-  name: Restore commit message
+  name: restore commit message (deprecated)
   description: Restore commit message after an earlier commit was aborted.
   language: python
   entry: restore-message
   stages: [prepare-commit-msg]
 
 - id: prepare-message
-  name: Prepare commit message
+  name: prepare commit message (deprecated)
   description: Add prefix from feature branch to commit message.
   language: python
   entry: prepare-message
   stages: [prepare-commit-msg]
 
 - id: spellcheck-message
-  name: Check spelling of message
+  name: check spelling of message (deprecated)
   description: Check spelling of message against known dictionary.
   language: python
   entry: spellcheck-message
@@ -21,35 +21,35 @@
   stages: [commit-msg]
 
 - id: format-message
-  name: Check message formatting
+  name: check message formatting (deprecated)
   description: Ensure commit message has correct formatting between header and description.
   language: python
   entry: format-message
   stages: [commit-msg]
 
 - id: ts-no-debugger
-  name: Check console debugger statements (deprecated)
+  name: check console debugger statements (deprecated)
   description: Check for lines in JavaScript and TypeScript containing debugger statements.
   language: pygrep
   entry: ^(?!//).*?\b(?<!\.)debugger\b
   types: [ts]
 
 - id: ts-no-console
-  name: Check console use (deprecated)
+  name: check console use (deprecated)
   description: Check for lines in TypeScript containing console use.
   language: pygrep
   entry: ^(?!//).*?\b(?<!\.)console\.\w+\(
   types: [ts]
 
 - id: ts-no-window
-  name: Check window access (deprecated)
+  name: check window access (deprecated)
   description: Check for lines in JavaScript and TypeScript containing window access.
   language: pygrep
   entry: ^(?!//).*?\b(?<![\."'])window\b
   types: [ts]
 
 - id: ts-no-focus-ignore
-  name: Check use of focus and ignore of tests (deprecated)
+  name: check use of focus and ignore of tests (deprecated)
   description: >-
     Forbid use of `fit()`, `xit()`, `xtest()`, `test.skip()` for tests and
     `fdescribe()`, `xdescribe()` and `describe.skip()` for suite functions.
@@ -58,35 +58,35 @@
   types: [ts]
 
 - id: ts-ng-lint
-  name: Execute ng lint (deprecated)
+  name: execute ng lint (deprecated)
   description: Execute ng lint from the node_modules directory.
   language: python
   entry: check-ng-lint
   types: [ts]
 
 - id: ng-lint
-  name: Execute ng lint (deprecated)
+  name: execute ng lint (deprecated)
   description: Use ts-ng-lint instead
   language: python
   entry: check-ng-lint
   types: [ts]
 
 - id: search-replace
-  name: Search and replace patterns
+  name: Search and replace patterns (deprecated)
   description: Search and replace given patterns.
   language: python
   entry: search-replace
   exclude_types: [binary]
 
 - id: replace-tabs
-  name: Replace tabs with spaces
+  name: replace tabs with spaces (deprecated)
   description: Replace tabs with spaces in files.
   language: python
   entry: replace-tabs
   exclude_types: [binary]
 
 - id: optimize-avif
-  name: Optimize avifs
+  name: optimize avifs (deprecated)
   description: Check whether avifs can be reencoded to decrease file size.
   language: python
   entry: optimize-avif
@@ -94,7 +94,7 @@
   types: [avif]
 
 - id: optimize-jpg
-  name: Optimize jpgs
+  name: optimize jpgs (deprecated)
   description: Check whether jpgs can be reencoded to decrease file size.
   language: python
   entry: optimize-jpg
@@ -102,7 +102,7 @@
   types: [jpeg]
 
 - id: optimize-png
-  name: Optimize pngs
+  name: optimize pngs (deprecated)
   description: Check whether pngs can be reencoded to decrease file size.
   language: python
   entry: optimize-png
@@ -110,7 +110,7 @@
   types: [png]
 
 - id: optimize-svg
-  name: Optimize svgs
+  name: optimize svgs (deprecated)
   description: Check whether svgs can be stripped to decrease file size.
   language: python
   entry: optimize-svg
@@ -118,7 +118,7 @@
   types: [svg]
 
 - id: optimize-webp
-  name: Optimize webps
+  name: optimize webps (deprecated)
   description: Check whether webps can be reencoded to decrease file size.
   language: python
   entry: optimize-webp
@@ -126,7 +126,7 @@
   types: [webp]
 
 - id: properties-whitespace
-  name: Remove whitespace in property files
+  name: remove whitespace in property files (deprecated)
   description: Remove whitespace around '=' in property files.
   language: python
   entry: search-replace
